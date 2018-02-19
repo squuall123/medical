@@ -3,16 +3,19 @@ security:
         AppBundle\Entity\User: bcrypt
         AppBundle\Entity\Patient: bcrypt
         AppBundle\Entity\Admin: bcrypt
+        AppBundle\Entity\Medecin: bcrypt
     providers:
         chain_provider:
             chain:
-                providers: [database_users, database_patients, database_admins]
+                providers: [database_users, database_patients, database_admins, database_medecins]
         database_users:
             entity: { class: AppBundle:User, property: email }
         database_admins:
             entity: { class: AppBundle:Admin, property: email }
         database_patients:
             entity: { class: AppBundle:Patient, property: email }
+        database_medecins:
+            entity: { class: AppBundle:Medecin, property: email }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
