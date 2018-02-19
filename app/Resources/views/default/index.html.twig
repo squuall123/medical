@@ -1,38 +1,111 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-success">
-                <div class="panel-heading">List of Game of Thrones Characters</div>
-
-                {% if app.user != null %}
-
-                <h1>{{ app.user.role }}</h1>
-                  <table class="table">
-                      <tr>
-                          <th>Character</th>
-                          <th>Real Name</th>
-                      </tr>
-
-                      {% for key, item in character %}
-                        <tr>
-                          <td>{{ key }}</td><td>{{ item }}</td>
-                        </tr>
-                      {% endfor %}
-                  </table>
-                {% endif %}
-
-
-            </div>
-
-            {% if app.user == null %}
-              <a href="/login" class="btn btn-info"> You need to login to see the list 😜😜 >></a>
-            {% endif %}
-        </div>
+  
+  <div id="myCarousel" class="carousel slide" data-interval="false">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="http://www.brunswickmedicalcentre.com.au/wp-content/uploads/2013/08/header-1.jpg" style="width:100%" class="img-responsive">
     </div>
+    <div class="item">
+      <img src="https://i.ytimg.com/vi/upWKRo6IgmI/maxresdefault.jpg" class="img-responsive">
+      
+    </div>
+    <div class="item">
+      <img src="https://static.pexels.com/photos/225841/pexels-photo-225841.jpeg" class="img-responsive">
+      
+    </div>
+  </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="icon-next"></span>
+  </a>  
+</div>  
+
+   
 </div>
+<div class="Features-section paddingTB60 bg-pink ">
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12 site-heading ">
+            <h3>A Découvrir</h3>
+            
+            <div class="border"></div>
+          </div>
+  </div>
+  <div class="row">
+            <div class="col-sm-6 col-md-3">
+              <div class="col-md-12 feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>Urgences</h4>
+                <button type="button" class="btn btn-primary site-btn">Voir</button>
+
+              </div>
+            </div> <!-- End Col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="col-md-12 feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>Radiologie</h4>
+                  <button type="button" class="btn btn-primary site-btn">Voir</button>
+              </div>
+            </div> <!-- End Col --> 
+            
+            <div class="col-sm-6 col-md-3">
+                <div class="feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>Gynéco</h4>
+                  <button type="button" class="btn btn-primary site-btn">Voir</button>
+              </div>
+            </div> <!-- End Col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="col-md-12 feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>Cardiologie</h4>
+                  <button type="button" class="btn btn-primary site-btn">Voir</button>
+              </div>
+            </div> <!-- End Col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="col-md-12 feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>Réanimation Néonatale</h4>
+                  <button type="button" class="btn btn-primary site-btn">Voir</button>
+              </div>
+            </div> <!-- End Col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="col-md-12 feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>Réanimation Médicale</h4>
+                  <button type="button" class="btn btn-primary site-btn">Voir</button>
+              </div>
+            </div>
+            
+                <div class="col-md-12 feature-box">
+            <button type="button" class="btn btn-primary site-btn"><strong>Plus ....</strong></button>
+            
+            </div>
+            
+  
+          </div>
+</div>
+</div>
+
+
+
+
+   
 {% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+

@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\Patient;
+use AppBundle\Entity\Medecin;
 use AppBundle\Form\PatientType;
+use AppBundle\Form\MedecinType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,13 +14,13 @@ use Symfony\Component\HttpFoundation\Request;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register", name="register")
+     * @Route("/registerMedecin", name="registerMedecin")
      */
     public function registerAction(Request $request)
     {
         // Create a new blank user and process the form
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $user = new Medecin();
+        $form = $this->createForm(MedecinType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -28,8 +30,9 @@ class RegistrationController extends Controller
             $user->setPassword($password);
 
             // Set their role
-            $user->setRole('ROLE_ADMIN');
-
+            $user->setRole('ROLE_MEDECIN');
+            $user->setEtat(false);
+            
             // Save
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
