@@ -9,8 +9,14 @@
         <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
 
-
-   
+{% if app.user.role == "ROLE_MEDECIN" %}
+{% if app.user.etat == true %}
+<h1>Compte medecin Véridié</h1>
+{% endif %}
+{% if app.user.etat == false %}
+<h1>Compte médecin non vérifié</h1>
+{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block stylesheets %}
