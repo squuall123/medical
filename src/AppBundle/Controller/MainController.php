@@ -18,7 +18,7 @@ class MainController extends Controller
     */
     public function showAction(Request $request)
     {
-        return $this->render('default/index.html.twig'); 
+        return $this->render('default/index.html.twig');
     }
 
         /**
@@ -26,7 +26,7 @@ class MainController extends Controller
     */
     public function showServicesAction(Request $request)
     {
-        return $this->render('default/services.html.twig'); 
+        return $this->render('default/services.html.twig');
     }
 
     /**
@@ -40,14 +40,17 @@ class MainController extends Controller
       $role =  $request->get('role');
       $id = $request->get('id');
         if ($role == "ROLE_PATIENT") {
+          $em = $this->getDoctrine()->getManager();
+          $temp = $em->getRepository('AppBundle:Patient')->findById($id);
+
         $patient = new Patient();
-        $editForm = $this->createForm('AppBundle\Form\PatientType');
+        $editForm = $this->createForm('AppBundle\Form\PatientType',$temp[0]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('utilisateur_edit', array('id' => $patient->getId()));
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('default/profil.html.twig', array(
@@ -55,13 +58,16 @@ class MainController extends Controller
             'edit_form' => $editForm->createView(),
         ));
         } else if($role == "ROLE_MEDECIN"){
-        $editForm = $this->createForm('AppBundle\Form\MedecinType');
+          $em = $this->getDoctrine()->getManager();
+          $temp = $em->getRepository('AppBundle:Medecin')->findById($id);
+          $medecin = new Medecin();
+        $editForm = $this->createForm('AppBundle\Form\MedecinType', $temp[0]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('utilisateur_edit', array('id' => $medecin->getId()));
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('default/profil.html.twig', array(
