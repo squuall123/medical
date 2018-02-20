@@ -1,1 +1,31 @@
-services
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="Features-section paddingTB60 bg-pink ">
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12 site-heading ">
+            <h3>A Découvrir</h3>
+            
+            <div class="border"></div>
+          </div>
+  </div>
+
+<div class="row">
+{% for service in services %}
+            <div class="col-sm-6 col-md-3">
+              <div class="col-md-12 feature-box">
+                <span class="glyphicon glyphicon-cog icon"></span>
+                <h4>{{ service.nom }}</h4>
+                <a  class="btn btn-primary site-btn" href="{{ path('service_show', { 'id': service.id }) }}">Voir</a>
+
+              </div>
+            </div> <!-- End Col -->
+{% endfor %}
+
+</div>
+</div>
+</div>
+
+{% endblock %}

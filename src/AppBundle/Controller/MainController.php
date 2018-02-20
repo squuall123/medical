@@ -34,7 +34,13 @@ class MainController extends Controller
     */
     public function showServicesAction(Request $request)
     {
-        return $this->render('default/services.html.twig');
+                $em = $this->getDoctrine()->getManager();
+
+        $services = $em->getRepository('AppBundle:Service')->findAll();
+
+        return $this->render('default/services.html.twig', array(
+            'services' => $services,
+        ));
     }
 
     /**
