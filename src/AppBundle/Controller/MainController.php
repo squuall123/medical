@@ -21,6 +21,14 @@ class MainController extends Controller
         return $this->render('default/index.html.twig');
     }
 
+    /**
+    * @Route("/contact", name="contact")
+    */
+    public function showContactAction(Request $request)
+    {
+        return $this->render('default/contact.html.twig');
+    }
+
         /**
     * @Route("/nos-services", name="services")
     */

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Include the above in your HEAD tag -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">      
+        <h2>Contactez-nous : </h2>
+<form action="http://kernel.handyform.com.br" method="post"><!-- Não apague ou altere esta linha-->
+<input type="hidden" name="titulo" value="Obrigado"> <!-- Titulo do Email que será enviado ao visitante exemplo: Obrigado-->
+<input type="hidden" name="nomedest" value="Thalita"> <!-- Digite o seu nome -->
+<input type="hidden" name="emaildest" value="oliveirarthalita@gmailcom"> <!-- Seu Email ;D -->
+<input type="hidden" name="ok" value="http://www.handyform.com.br/url"><!-- Url de retorno exemplo: http://seusite.com/ok.html.html-->
+<table width="37%" border="0">
+            <div class="well well-sm">
+                <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">
+                                Nom</label>
+                            <input type="text" class="form-control" id="name" placeholder="Entrez votre nom" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                Email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                                </span>
+                                <input type="email" class="form-control" id="email" placeholder="Entrez votre email" required="required" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">
+                                Sujet</label>
+                            <select id="subject" name="subject" class="form-control" required="required">
+                                <option value="na" selected="">Choisissez:</option>
+                                <option value="service">Services clients</option>
+                                <option value="suggestions">Suggestions</option>
+                                <option value="product">Réclamation</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">
+                                Message</label>
+                            <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
+                                placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+                            Envoyer Message</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Google Map </h2>
+      
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2646.2531389455903!2d-89.23024619999998!3d48.4516724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d5923dbfe697737%3A0xc9d925c9bc9573fa!2s116+Bruce+St%2C+Thunder+Bay%2C+ON+P7A+5W6!5e0!3m2!1sen!2sca!4v1424272264157" width="600" height="450" frameborder="0" style="border:0"></iframe>
+      </div></div></div>
+        
+        <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fbootsnipp.com%2Fiframe%2Fb2BWe" class="pull-right" target="_blank">
+            <small>HTML</small><sup>5</sup>
+        </a>
+        </p>
+{% endblock %}
