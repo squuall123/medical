@@ -2,17 +2,28 @@
 
 {% block body %}
 
-    <h1>Utilisateur edit</h1>
+    <h1>Informations Personnelles : </h1>
 
-    {{ form_start(edit_form) }}
+{% if app.user.role == "ROLE_ADMIN" %}
+	    {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
         <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
+{% endif %}
+
+{% if app.user.role == "ROLE_PATIENT" %}
+	    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+{% endif %}
+
 
 {% if app.user.role == "ROLE_MEDECIN" %}
-{% if app.user.etat == true %}
-<h1>Compte medecin Véridié</h1>
-{% endif %}
+	{{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
 {% if app.user.etat == false %}
 <h1>Compte médecin non vérifié</h1>
 {% endif %}
