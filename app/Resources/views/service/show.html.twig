@@ -1,93 +1,79 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 
-<style type="text/css">
-    .template {
-         display: none;
-    }
-    .add-panel {
-        display: none;
-    }
-</style>
-    <h1>Service</h1>
+<h1>Service</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ service.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ service.nom }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ service.description }}</td>
-            </tr>
-            <tr>
-                <th>Numtel</th>
-                <td>{{ service.numTel }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                </tr>
-            </thead>
-            {% for medecin in medecins %}
-                        <script type="text/javascript">
-        $(function(){
+<table>
+  <tbody>
+    <tr>
+      <th>Id</th>
+      <td>{{ service.id }}</td>
+    </tr>
+    <tr>
+      <th>Nom</th>
+      <td>{{ service.nom }}</td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td>{{ service.description }}</td>
+    </tr>
+    <tr>
+      <th>Numtel</th>
+      <td>{{ service.numTel }}</td>
+    </tr>
+  </tbody>
+</table>
 
 
-            // Add button
-            $(".btn-{{medecin.name}}").click(function() {
-                $(".add-panel-{{medecin.name}}").toggle('slow')
-            });
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nom</th>
+    </tr>
+  </thead>
+  {% for medecin in medecins %}
+  <tbody>
+    <tr>
+      <div class="container">
+        <p>
+          <td> <a class="btn-{{medecin.name}} btn btn-primary btn-lg">{{medecin.name}}</a></td>
 
-        });
-</script>
-            <tbody>
-                <tr>
-            <div class="container">
-            <p>
-                <td> <a class="btn-{{medecin.name}} btn btn-primary btn-lg">{{medecin.name}}</a></td>
-               
-            </p>
-            <div class="add-panel-{{medecin.name}} panel panel-default">
-                <div class="panel-body">
-
-
-                            
-                                    <h3>{{medecin.phone}}</h3>
-                                    <h3>{{medecin.email}}</h3>
-
-
-                            <div class="col-md-9 col-lg-push-3">
-                                <a href="#" class="btn-add-submit btn btn-primary">Voir</a> 
-                                 <a href="#" class="btn-add-submit btn btn-primary">Prendre RDV</a> 
-                            </div>
-
-                </div>
+        </p>
+        <div class="add-panel-{{medecin.name}} panel panel-default">
+          <div class="panel-body">
+            <h3>{{medecin.phone}}</h3>
+            <h3>{{medecin.email}}</h3>
+            <div class="col-md-9 col-lg-push-3">
+              <a href="/medecin/{{medecin.id}}" class="btn-add-submit btn btn-primary">Voir</a>
+              <a href="/consultation/new/{{medecin.id}}/{{app.user.id}}" class="btn-add-submit btn btn-primary">Prendre RDV</a>
             </div>
-        </div>  
-                    
-                </tr>
-            </tbody>
-                {% endfor %}
-        </table>
+
+          </div>
+        </div>
+      </div>
+
+    </tr>
+  </tbody>
+  <style type="text/css">
+.add-panel-{{medecin.name}} {
+    display: none;
+}
+</style>
+  <script type="text/javascript">
+  $(function(){
+
+    $(".btn-{{medecin.name}}").click(function() {
+      console.log("clicked");
+      $(".add-panel-{{medecin.name}}").toggle('slow')
+    });
+
+  });
+  </script>
+  {% endfor %}
+</table>
 
 
-    <ul>
-        <li>
-            <a href="{{ path('service_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
 
 {% block  javascripts %}

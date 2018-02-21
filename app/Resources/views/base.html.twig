@@ -6,8 +6,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        
+
 </head>
 <body>
   <nav class="navbar navbar-default" role="navigation">
@@ -20,13 +21,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      
+
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
-      
+
+
       <ul class="nav navbar-nav navbar-right">
           <li class="active"><a href="/">Accueil</a></li>
        {% if app.user != null %}
@@ -36,24 +37,26 @@
        <li><a href="/logout">Prendre RDV</a></li>
         {% elseif app.user == null %}
          <li><a href="/login">Connexion</a></li>
-       
-        {% endif %} 
+
+        {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
         <li><a href="/admin">Dashboard</a></li>
         {% endif %}
         <li><a href="/contact">Contactez nous</a></li>
         <li><a href="#">Nos Statistiques</a></li>
-       
-        
-       
-        
-        
+
+
+
+
+
       </ul>
     </div><!-- /.navbar-collapse -->
       </div><!-- /.container-collapse -->
   </nav>
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
 {% block login %}{% endblock %}
 </body>
 <footer>
@@ -63,18 +66,18 @@
         <div class="col-md-6 footer-one">
             <h5>A propos </h5>
             <p>Idéalement situé au cœur de la zone touristique, le Centre International Médical bénéficie d’un cadre exceptionnel. Afin de vous proposer des conditions de séjour agréables et sereines, pour vous-même comme pour ceux qui vous rendront visite, nous avons conçu un environnement lumineux, coloré et confortable..</p>
-                <div class="social-icons"> 
+                <div class="social-icons">
                <a href="https://www.facebook.com/"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
                <a href="https://twitter.com/"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
                 <a href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
                 <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a>
-            </div>  
+            </div>
         </div>
-        
+
         <div class="col-md-6 footer-two">
             <h5>Liens d'aides </h5>
             <ul>
-                                    
+
                                     <li><a href="contact.html">Adresse</a></li>
                                     <li><a href="about.html">A propos</a></li>
                                     <li><a href="about.html">Contact</a></li>
@@ -82,8 +85,8 @@
                                     <li><a href="about.html">Prendre RDV</a></li>
                                 </ul>
         </div>
-        
-        
+
+
         <div class="clearfix"></div>
     </div>
 </div>
@@ -95,11 +98,11 @@
                                 <p>CopyRight © 2018. Mbarek Amal & Miled Wassim All Rights Reserved</p>
                             </div>
                         </div> <!-- End Col -->
-                        
+
                     </div>
                 </div>
     </div>
-</div>  
+</div>
     </footer>
 </html>
 <style>
@@ -131,7 +134,7 @@
     font-size:50px;
     border-radius:90px;
     border:10px solid #323232 ;
-    
+
 }
 .feature-box {
     text-align: center;
@@ -141,7 +144,7 @@
     border: 1px solid #e8e8e8;
 }
 .feature-box:hover {
-   
+
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .feature-box h4 {
@@ -183,7 +186,7 @@
   position: absolute;
   top: 0;
   left: 0;
- 
+
 }
 .carousel-caption {
     margin-bottom:30px;
@@ -240,7 +243,7 @@
     padding-bottom: 15px;
     border-top: 1px solid rgba(0,0,0,0.09);
     background: #fff;
-    
+
 }
 .copyright-text p {
     color: #707070;
@@ -252,7 +255,7 @@
 /* Social Icons */
 
 .social-icons{
-    
+
     margin: 0;
     padding: 0;
     font-size : 10px;
@@ -280,7 +283,7 @@
      color: #f39c12;
      transition:all .25s;
  }
- 
+
  /* CTA CSS */
  .cta-padding35 {
     padding: 35px 0 35px;
@@ -302,16 +305,16 @@
     background-color:transparent;
     transition: all .25s ease-in-out;
     margin: 10px 0px 10px 0px;
-    
+
 }
 .site-btn:hover {
     background: #b40028 ;
     border: 1px solid #fff;
     font-weight:700px;
-    
-    
+
+
 }
- 
+
 
 
 /* Navigation */
@@ -419,4 +422,3 @@
 }
 
 </style>
-

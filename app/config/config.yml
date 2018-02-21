@@ -74,3 +74,4 @@ easy_admin:
         - AppBundle\Entity\Admin
         - AppBundle\Entity\Medecin
         - AppBundle\Entity\Service
+        - AppBundle\Entity\Consultation
