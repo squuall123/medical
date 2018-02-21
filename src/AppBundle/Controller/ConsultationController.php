@@ -34,7 +34,7 @@ class ConsultationController extends Controller
     /**
      * Creates a new consultation entity.
      *
-     * @Route("/new/{medeinid}/{patientid}", name="consultation_new")
+     * @Route("/new/{medecinid}/{patientid}", name="consultation_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
