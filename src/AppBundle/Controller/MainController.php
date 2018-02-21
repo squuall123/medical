@@ -42,6 +42,32 @@ class MainController extends Controller
             'services' => $services,
         ));
     }
+         /**
+    * @Route("/nos-patients", name="patients")
+    */
+    public function showPatientsAction(Request $request)
+    {
+                $em = $this->getDoctrine()->getManager();
+
+        $patients = $em->getRepository('AppBundle:Patient')->findAll();
+
+        return $this->render('default/patients.html.twig', array(
+            'patients' => $patients,
+        ));
+    }
+         /**
+    * @Route("/nos-medecins", name="medecins")
+    */
+    public function showMedecinsAction(Request $request)
+    {
+                $em = $this->getDoctrine()->getManager();
+
+        $medecins = $em->getRepository('AppBundle:Medecin')->findAll();
+
+        return $this->render('default/medecins.html.twig', array(
+            'medecins' => $medecins,
+        ));
+    }
 
     /**
      * Displays a form to edit an existing utilisateur entity.

@@ -1,16 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Consultation creation</h1>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="jumbotron">
+        <div class="container">
+             <h1><center>Prise de RDV :</center> </h1>
 
+    
+
+        </div>
+        
+    </div>
+<div class="span3">
+
+    <div class="container">
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+         {{ form_label(form.nomPatient) }}
+          {{ form_widget(form.nomPatient) }}
+          {{ form_label(form.nomMedecin) }}
+          {{ form_widget(form.nomMedecin) }}
+          {{ form_label(form.dateRDV) }}
+          {{ form_widget(form.dateRDV) }}
+          {{ form_label(form.description) }}
+          {{ form_widget(form.description) }}
+          
         <input type="submit" value="Create" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('consultation_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    </div>
+</div>
+   
 {% endblock %}

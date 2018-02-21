@@ -34,13 +34,15 @@
         <li><a href="/profil/{{app.user.role}}/{{app.user.id}}">Profil</a></li>
        <li><a href="/logout">Deconnexion</a></li>
        <li><a href="/nos-services">Nos services</a></li>
-       <li><a href="/logout">Prendre RDV</a></li>
+       <li><a href="/nos-medecins">Prendre RDV</a></li>
         {% elseif app.user == null %}
          <li><a href="/login">Connexion</a></li>
 
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
         <li><a href="/admin">Dashboard</a></li>
+        <li><a href="/nos-patients">Nos Patients</a></li>
+        
         {% endif %}
         <li><a href="/contact">Contactez nous</a></li>
         <li><a href="#">Nos Statistiques</a></li>

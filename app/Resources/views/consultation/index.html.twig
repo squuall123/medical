@@ -24,8 +24,8 @@
                 <td>{{ consultation.nomMedecin }}</td>
                 <td>{{ consultation.idPatient }}</td>
                 <td>{{ consultation.idMedecin }}</td>
-                <td>{% if consultation.dateCreation %}{{ consultation.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if consultation.dateRDV %}{{ consultation.dateRDV|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if consultation.dateCreation %}{{ consultation.dateCreation|date('Y-m-d ') }}{% endif %}</td>
+                <td>{% if consultation.dateRDV %}{{ consultation.dateRDV|date('Y-m-d ') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>

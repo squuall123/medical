@@ -1,34 +1,58 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{service.nom}}{% endblock %}
 {% block body %}
 <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 
-<h1>Service</h1>
-
-<table>
-  <tbody>
-    <tr>
-      <th>Id</th>
-      <td>{{ service.id }}</td>
-    </tr>
-    <tr>
-      <th>Nom</th>
-      <td>{{ service.nom }}</td>
-    </tr>
-    <tr>
-      <th>Description</th>
-      <td>{{ service.description }}</td>
-    </tr>
-    <tr>
-      <th>Numtel</th>
-      <td>{{ service.numTel }}</td>
-    </tr>
-  </tbody>
-</table>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
 
+<div id="hero">
+  <div class="wrapper">
 
-<!-- New table bootstrap test -->
+    <h1>{{service.nom}} :</h1>
+  </div>
+</div>
+<tbody>
+<div id="scroll">
+  <span class="arrow-bounce">↓</span>
+</div>
 
+<div class="wrapper">
+<section id="one">
+  <h2>Description: </h2>
+   
+  
+   {{ service.description }}
+        <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus non nostrum ut aut ab dolorem, dolorum voluptas expedita dolor maxime adipisci, fugit est error similique, ducimus! Aut debitis at omnis.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus non nostrum ut aut ab dolorem, dolorum voluptas expedita dolor maxime adipisci, fugit est error similique, ducimus! Aut debitis at omnis.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus non nostrum ut aut ab dolorem, dolorum voluptas expedita dolor maxime adipisci, fugit est error similique, ducimus! Aut debitis at omnis.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus non nostrum ut aut ab dolorem, dolorum voluptas expedita dolor maxime adipisci, fugit est error similique, ducimus! Aut debitis at omnis.</p></td>
+    
+
+
+</section>
+<section id="one">
+  <h2>Numéro de Téléphone: </h2>
+   <p>Pour joindre le service {{service.nom}} appeler le numéro suivant:
+  
+   {{ service.numTel }}
+       
+    
+
+
+</section>
+
+<section id="three">
+  <h2>Liste de medecin :</h2>
+  <!-- New table bootstrap test -->
+ </tbody>
 <table class="table table-striped table-bordered table-list">
                   <thead>
                     <tr>
@@ -38,15 +62,15 @@
                   <tbody>
                           {% for medecin in medecins %}
                           <tr>
-                            <td><a class="btn-{{medecin.id}} btn btn-primary btn-lg">{{medecin.name}}</a>
+                            <td><a class="btn-{{medecin.id}} btn " style="color:black">{{medecin.name}}</a>
 
                          <div class="add-panel-{{medecin.id}} panel panel-default" style="display:none">
                            <div class="panel-body">
-                             <h3>{{medecin.phone}}</h3>
-                             <h3>{{medecin.email}}</h3>
+                             <h3>Téléphone : {{medecin.phone}}</h3>
+                             <h3>Email : {{medecin.email}}</h3>
                              <div class="col-md-9 col-lg-push-3">
-                               <a href="/medecin/{{medecin.id}}" class="btn-add-submit btn btn-primary">Voir</a>
-                               <a href="/consultation/new/{{medecin.id}}/{{app.user.id}}" class="btn-add-submit btn btn-primary">Prendre RDV</a>
+                               <a href="/medecin/{{medecin.id}}" class="btn-add-submit btn btn-success">Voir profil</a>
+                               <a href="/consultation/new/{{medecin.id}}/{{app.user.id}}" class="btn-add-submit btn btn-danger">Prendre RDV</a>
                              </div>
 
                            </div>
@@ -66,6 +90,191 @@
                           {% endfor %}
                         </tbody>
                 </table>
+   
+</section>
+
+
+
+
+
+<footer></footer>
+</div> <!-- end .wrapper -->
+<script>
+    function smoothScroll(target, time) {
+  var margin = ($('#main-header').outerHeight() - 1);
+  if (!time) { time = '1000'; }
+
+  if (target === 'toTop') {
+    $('html,body').animate({
+      scrollTop: 0
+    }, time);
+  }
+  else {
+    $('html,body').animate({
+      scrollTop: target.offset().top - margin
+    }, time);
+  }
+}
+
+// SCROLL DOWN ARROR BUTTON
+
+  var count = 0;
+
+  $('#scroll').on("click", function(){
+
+    var sections = $('section');
+
+    //+55px to offset the margin-top
+    var $this = $(this),
+      top = ($this.offset().top - $(window).scrollTop()) + 55,
+      right = $this.offset().right;
+
+
+    $this.css({
+      position: 'fixed',
+      top: top,
+      right: right
+    })
+    .animate({
+      right: '5%',
+      top: '90%'
+    }, 600)
+    .addClass('clicked');
+
+    var target;
+
+    // END OF ARRAY HAS ALEADY BEEN REACHED
+    if (count > (sections.length -1) ) { 
+      count = -1;
+      
+      smoothScroll('toTop');
+      $this.removeClass('rotate');
+    }
+    // JUST REACHED END OF ARRAY
+    else { 
+      target = $(sections[count]);
+      if (count === (sections.length -1)) {
+        $this.addClass('rotate');
+      }
+      smoothScroll(target);
+    }
+  
+    count++;
+
+    $(this).find('.arrow-bounce').removeClass('arrow-bounce');
+
+  });
+</script>
+
+<style>
+
+html, body {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#hero {
+  text-align: center;
+  min-height: 100px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-bottom: 35px;
+}
+
+#hero, section {
+  padding: 35px;
+}
+
+#scroll {
+  z-index: 1;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  background: black;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-top: -55px;
+  margin-right: -25px;
+  color: white;
+  padding-top: 0px;
+  font-size: 26px;
+  line-height: 26px;
+  cursor: pointer;
+  position: absolute;
+  right: 50%;
+  -webkit-transition: -webkit-transform 0.6s ease;
+  -moz-transition: -moz-transform 0.6s ease;
+  transition: transform 0.6s ease;
+}
+#scroll.clicked {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+}
+#scroll.rotate {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(3180deg);
+}
+#scroll span {
+  position: relative;
+  bottom: -10px;
+}
+
+.arrow-bounce {
+  -webkit-animation: arrow 1s infinite;
+  -moz-animation: arrow 1s infinite;
+  -o-animation: arrow 1s infinite;
+  animation: arrow 1s infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@-webkit-keyframes arrow {
+  0% {
+    bottom: -13px;
+  }
+  50% {
+    bottom: -8px;
+  }
+  100% {
+    bottom: -13px;
+  }
+}
+@-moz-keyframes arrow {
+  0% {
+    bottom: -13px;
+  }
+  50% {
+    bottom: -8px;
+  }
+  100% {
+    bottom: -13px;
+  }
+}
+@keyframes arrow {
+  0% {
+    bottom: -13px;
+  }
+  50% {
+    bottom: -8px;
+  }
+  100% {
+    bottom: -13px;
+  }
+}
+
+</style>
 
 
 

@@ -44,4 +44,6 @@ class MedecinController extends Controller
             'medecin' => $medecin,
         ));
     }
+
+    
 }

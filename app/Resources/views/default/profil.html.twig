@@ -1,29 +1,41 @@
 {% extends 'base.html.twig' %}
+{% block title%}Profil de {{app.user.name}}{% endblock %}
 
 {% block body %}
-
-    <h1>Informations Personnelles : </h1>
+    <div class="jumbotron">
+    <div class="container">
+        <h1><center>Informations Personnelles :</center> </h1>
+    </div>
+</div>
+    
 
 {% if app.user.role == "ROLE_ADMIN" %}
+    <div class="container">
 	    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+
+        {{ form_widget(edit_form) }}<br>
+        <input type="submit" value="Edit" class="btn btn-warning" />
     {{ form_end(edit_form) }}
+    </div>
 {% endif %}
 
 {% if app.user.role == "ROLE_PATIENT" %}
+    <div class="container">
 	    {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Edit" class="btn btn-warning" />
     {{ form_end(edit_form) }}
+    </div>
 {% endif %}
 
 
 {% if app.user.role == "ROLE_MEDECIN" %}
+    <div class="container">
 	{{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Edit" class="btn btn-warning" />
     {{ form_end(edit_form) }}
+    </div>
     
 {% if app.user.etat == false %}
 <h1>Compte médecin non vérifié</h1>
