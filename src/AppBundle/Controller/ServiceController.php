@@ -39,7 +39,7 @@ class ServiceController extends Controller
      */
     public function showAction(Service $service)
     {
-        $spec = $service->getNom();
+        $spec = $service->getId();
         $em = $this->getDoctrine()->getManager();
         $medecin = $em->getRepository('AppBundle:Medecin')->findBySpecialite($spec);
             //var_dump($medecin);

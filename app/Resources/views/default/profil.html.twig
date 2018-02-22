@@ -3,46 +3,106 @@
 
 {% block body %}
     <div class="jumbotron">
-    <div class="container">
-        <h1><center>Informations Personnelles :</center> </h1>
-    </div>
-</div>
+        <div class="container">
+            <h1><center>Informations Personnelles :</center> </h1>
+        </div>
+    </div>  
     
 
-{% if app.user.role == "ROLE_ADMIN" %}
-    <div class="container">
-	    {{ form_start(edit_form) }}
+    {% if app.user.role == "ROLE_ADMIN" %}
 
-        {{ form_widget(edit_form) }}<br>
-        <input type="submit" value="Edit" class="btn btn-warning" />
-    {{ form_end(edit_form) }}
-    </div>
+       {{ form_start(edit_form) }}
+
+       <div class="container" style="margin-top:120px;">
+        <div class="prog-page">
+           <div class="header-title header-btn">
+            <div class="header-info">
+             <h2><i class="fa fa-info-circle"></i> Profile de {{app.user.name}} :</h2>
+            </div>
+
+            </div>
+
+
+            <div class="prof-page-info">
+            <div class="row">
+
+                <div class="col-md-9">
+
+
+                <div class="prof-info">
+
+                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.name) }}</label>  <span>            {{ form_widget(edit_form.name) }}
+                 </span></div>
+                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.email) }}</label>  <span>            {{ form_widget(edit_form.email) }}
+                 </span></div>
+                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.plainPassword.first) }}</label>  <span>            {{ form_widget(edit_form.plainPassword.first) }}
+                 </span></div>
+
+                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.plainPassword.second) }}</label>  <span>            {{ form_widget(edit_form.plainPassword.second) }}
+                 </span></div>
+
+                 <div class="info"><input type="submit" value="Edit" class="btn btn-warning" /></div>
+                </div>
+                </div>
+
+
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+
+{{ form_end(edit_form) }}
+</div>
 {% endif %}
 
 {% if app.user.role == "ROLE_PATIENT" %}
     <div class="container">
-	    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" class="btn btn-warning" />
-    {{ form_end(edit_form) }}
-    </div>
+       {{ form_start(edit_form) }}
+       {{ form_widget(edit_form) }}
+       <input type="submit" value="Edit" class="btn btn-warning" />
+       {{ form_end(edit_form) }}
+   </div>
 {% endif %}
 
 
 {% if app.user.role == "ROLE_MEDECIN" %}
     <div class="container">
-	{{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" class="btn btn-warning" />
-    {{ form_end(edit_form) }}
-    </div>
-    
-{% if app.user.etat == false %}
-<h1>Compte médecin non vérifié</h1>
+       {{ form_start(edit_form) }}
+       {{ form_widget(edit_form) }}
+       <input type="submit" value="Edit" class="btn btn-warning" />
+       {{ form_end(edit_form) }}
+   </div>
+
+   {% if app.user.etat == false %}
+    <h1>Compte médecin non vérifié</h1>
 {% endif %}
 {% endif %}
 {% endblock %}
 
 {% block stylesheets %}
+    <style type="text/css">
+    .prof-page-info{padding:10px;}
+    .prof-img{width:100%;height:300px;position:relative;border:5px solid #666;}
+    .prof-img img{position:absolute;width:100%;height:100%;padding:3px;}
+    .img-title{position:absolute;bottom:0px;background:#666;color:#fff;width:100%;text-align:center;padding:5px;border:1px solid #fff;padding:5px 5px 5px 5px;}
+    .info{padding:10px;font-size:14px;border-bottom:1px solid #ddd;}
+    .prog-page{border:1px solid #ddd;box-shadow:1px 1px 5px #ddd;position:relative;}
+    .header-info {position:relative;padding-left:25px;background:#666;color:#fff;padding:10px;}
+    .prof-info .info i{padding:8px 9px 0px 9px;box-shadow:1px 1px 5px #ddd;background:#0099ff;width:30px;height:30px;border-radius:50%;color:#fff;margin-right:10px;}
+    .header-info i{padding-right:8px;font-size:25px;}
+    
+    .tags-label {background:#0099ff;color:#fff;position:absolute;padding:7px 6px 7px 5px;
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);z-index:1;
+    }
+
+    .tags-label i{color:#fff;}
+    .tags-label span{padding:4px;border:1px solid #fff;padding:4px 7px 3px 9px}
+    .header-info a{cursor:pointer;float:right;position:absolute;}
+    .header-btn-edit{float:right;top:15px;position:absolute;right:12px;}
+    .header-btn-edit a{background:#2b7dc3;color:#fff;padding:10px;border-radius:20px;box-shadow:1px 1px 5px #eee;}
+    .header-btn-edit a i{color:#fff;padding-right:8px;}
+    </style>
 
 {% endblock %}

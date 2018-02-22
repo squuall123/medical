@@ -6,6 +6,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +25,11 @@ class MedecinType extends AbstractType
             ->add('ssn')
             ->add('phone')
             ->add('specialite')
-            ->add('justificatif');
+            ->add('justificatifFile', VichFileType::class, [
+            'required' => true,
+            'allow_delete' => true
+
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -67,6 +67,15 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
+    mappings:
+        verif_file:
+            uri_prefix: /files/medecins
+            upload_destination: '%kernel.project_dir%/public/files/medecins'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
 easy_admin:
     entities:
         - AppBundle\Entity\User

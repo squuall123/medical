@@ -5,9 +5,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable
  * @UniqueEntity(fields="email", message="This email address is already in use")
  */
 class Medecin implements UserInterface
@@ -55,9 +58,10 @@ class Medecin implements UserInterface
     protected $phone;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     */
-    protected $specialite;
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+    */
+     private $specialite;
 
     /**
      * @ORM\Column(type="boolean")
@@ -65,9 +69,80 @@ class Medecin implements UserInterface
     protected $etat;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="verif_file", fileNameProperty="justificatifName", size="justificatifSize")
+     * 
+     * @var File
      */
-    protected $justificatif;
+    private $justificatifFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    private $justificatifName;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setJustificatifFile(?File $file = null): void
+    {
+        $this->justificatifFile = $file;
+
+        if (null !== $file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getJustificatifFile(): ?File
+    {
+        return $this->justificatifFile;
+    }
+
+    public function setJustificatifName(?string $justificatifName): void
+    {
+        $this->justificatifName = $justificatifName;
+    }
+
+    public function getJustificatifName(): ?string
+    {
+        return $this->justificatifName;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Justificatif
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 
     public function eraseCredentials()
     {

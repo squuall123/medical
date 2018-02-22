@@ -124,4 +124,9 @@ class Service
     {
         return $this->numTel;
     }
+
+    public function __toString()
+   {
+      return strval( $this->getNom() );
+   }
 }
