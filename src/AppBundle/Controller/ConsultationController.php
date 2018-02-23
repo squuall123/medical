@@ -39,11 +39,17 @@ class ConsultationController extends Controller
      */
     public function newAction(Request $request)
     {
-        $idPatient = $request->get('patientid');
-        $idMedecin = $request->get('medecinid');
+      $idPatient = $request->get('patientid');
+      $idMedecin = $request->get('medecinid');
+        $em = $this->getDoctrine()->getManager();
+        $medecin = $em->getRepository('AppBundle:Medecin')->findById($idMedecin);
+        $patient = $em->getRepository('AppBundle:Patient')->findById($idPatient);
+          var_dump($medecin[0]);
         $consultation = new Consultation();
         $consultation->setIdPatient($idPatient);
         $consultation->setIdMedecin($idMedecin);
+        //$consultation->setNomPatient($patient->getName());
+        //$consultation->setNomMedecin($medecin->getName());
         $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation);
         $form->handleRequest($request);
 

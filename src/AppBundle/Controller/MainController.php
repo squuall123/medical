@@ -122,6 +122,7 @@ class MainController extends Controller
         $admin = new Admin();
         $editForm = $this->createForm('AppBundle\Form\AdminType', $temp[0]);
         $editForm->handleRequest($request);
+        $patients = $em->getRepository('AppBundle:Patient')->findAll();
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -132,6 +133,7 @@ class MainController extends Controller
         return $this->render('default/profil.html.twig', array(
             'utilisateur' => $admin,
             'edit_form' => $editForm->createView(),
+            'patients' => $patients,
         ));
         }
 

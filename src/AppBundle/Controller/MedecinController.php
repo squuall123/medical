@@ -39,11 +39,10 @@ class MedecinController extends Controller
      */
     public function showAction(Medecin $medecin)
     {
-
         return $this->render('medecin/show.html.twig', array(
             'medecin' => $medecin,
         ));
     }
 
-    
+
 }

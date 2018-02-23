@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Patients list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Password</th>
+                <th>Ssn</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for patient in patients %}
+            <tr>
+                <td><a href="{{ path('patient_show', { 'id': patient.id }) }}">{{ patient.id }}</a></td>
+                <td>{{ patient.email }}</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.role }}</td>
+                <td>{{ patient.password }}</td>
+                <td>{{ patient.ssn }}</td>
+                <td>{{ patient.phone }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('patient_show', { 'id': patient.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
