@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Consultation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Consultation controller.
@@ -42,14 +43,17 @@ class ConsultationController extends Controller
       $idPatient = $request->get('patientid');
       $idMedecin = $request->get('medecinid');
         $em = $this->getDoctrine()->getManager();
-        $medecin = $em->getRepository('AppBundle:Medecin')->findById($idMedecin);
-        $patient = $em->getRepository('AppBundle:Patient')->findById($idPatient);
-          var_dump($medecin[0]);
+        $medecin = $em->getRepository('AppBundle:Medecin')->findOneById($idMedecin);
+        $patient = $em->getRepository('AppBundle:Patient')->findOneById($idPatient);
+          //var_dump($medecin[0]);
+          //var_dump($medecin);;
         $consultation = new Consultation();
         $consultation->setIdPatient($idPatient);
         $consultation->setIdMedecin($idMedecin);
-        //$consultation->setNomPatient($patient->getName());
-        //$consultation->setNomMedecin($medecin->getName());
+        $consultation->setNomPatient($patient->getName());
+        $consultation->setNomMedecin($medecin->getName());
+        $date = new \DateTime("now");
+        $consultation->setDateCreation($date);
         $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation);
         $form->handleRequest($request);
 

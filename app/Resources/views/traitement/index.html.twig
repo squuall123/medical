@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Traitements list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Medecinid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for traitement in traitements %}
+            <tr>
+                <td><a href="{{ path('traitement_show', { 'id': traitement.id }) }}">{{ traitement.id }}</a></td>
+                <td>{{ traitement.titre }}</td>
+                <td>{{ traitement.contenu }}</td>
+                <td>{{ traitement.medecinId }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('traitement_show', { 'id': traitement.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('traitement_edit', { 'id': traitement.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('traitement_new') }}">Create a new traitement</a>
+        </li>
+    </ul>
+{% endblock %}

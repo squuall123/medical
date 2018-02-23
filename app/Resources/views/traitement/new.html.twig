@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron">
+        <div class="container">
+             <h1><center>Création Traitement :</center> </h1>
+
+
+
+        </div>
+
+    </div>
+<div class="span3">
+
+    <div class="container">
+      {{ form_start(form) }}
+          {{ form_label(form.titre) }}
+          {{ form_widget(form.titre) }}
+          {{ form_label(form.contenu) }}
+          {{ form_widget(form.contenu) }}
+          {{ form_label(form.patient) }}
+          {{ form_widget(form.patient) }}
+          <input type="submit" value="Create" />
+      {{ form_end(form) }}
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -70,16 +70,15 @@ class Medecin implements UserInterface
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="verif_file", fileNameProperty="justificatifName", size="justificatifSize")
-     * 
+     *
      * @var File
      */
     private $justificatifFile;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
      * @var string
      */
     private $justificatifName;
@@ -338,4 +337,9 @@ class Medecin implements UserInterface
     {
         return $this->justificatif;
     }
+
+    public function __toString()
+   {
+      return strval( $this->getName() );
+   }
 }
