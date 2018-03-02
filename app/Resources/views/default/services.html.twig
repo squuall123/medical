@@ -1,23 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
 <div class="Features-section paddingTB60 bg-pink ">
     <div class="container">
   <div class="row">
     <div class="col-md-12 site-heading ">
             <h3>Services :</h3>
-            
+
             <div class="border"></div>
           </div>
   </div>
 
-<div class="row">
+<div class="list row" >
 {% for service in services %}
             <div class="col-sm-6 col-md-3">
               <div class="col-md-12 feature-box">
                 <span class="glyphicon glyphicon-cog icon"></span>
-                <h4>{{ service.nom }}</h4>
+                <h4 class="name">{{ service.nom }}</h4>
                 <a  class="btn btn-primary site-btn" href="{{ path('service_show', { 'id': service.id }) }}">Voir</a>
 
               </div>
@@ -27,5 +28,44 @@
 </div>
 </div>
 </div>
+
+
+
+<!-- // ul styling -->
+
+
+<div id="services">
+
+<!-- class="search" automagically makes an input a search field. -->
+  <input class="search" placeholder="Search" />
+<!-- class="sort" automagically makes an element a sort buttons. The date-sort value decides what to sort by. -->
+  <button class="sort" data-sort="name">
+    Sort
+  </button>
+
+  <ul class="list list-group">
+    {% for service in services %}
+    <li class="list-group-item">
+          <span class="glyphicon glyphicon-cog icon"></span>
+      <h4 class="name">{{ service.nom }}</h4>
+      <a  class="btn btn-primary site-btn" href="{{ path('service_show', { 'id': service.id }) }}">Voir</a>
+
+    </li>
+    {% endfor %}
+
+  </ul>
+
+</div>
+
+<script type="text/javascript">
+var options = {
+  valueNames: [ 'name' ]
+};
+
+var userList = new List('services', options);
+
+</script>
+
+
 
 {% endblock %}

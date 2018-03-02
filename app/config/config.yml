@@ -84,3 +84,14 @@ easy_admin:
         - AppBundle\Entity\Medecin
         - AppBundle\Entity\Service
         - AppBundle\Entity\Consultation
+        - AppBundle\Entity\Traitement
+    list:
+        actions:
+            - { name: 'show', icon: 'search', label: 'Show' }
+            - { name: 'edit', icon: 'pencil', label: 'Edit' }
+            - { name: 'delete', icon: 'trash', label: 'Delete' }
+            - { name: 'search', icon: 'search', label: 'Search' }
+            - { name: 'new', label: 'New' }
+            # if you prefer, set labels to false
+            # - { name: 'show', icon: 'search', label: false }
+            # - { name: 'edit', icon: 'pencil', label: false }

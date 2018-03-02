@@ -41,7 +41,10 @@ class ServiceController extends Controller
     {
         $spec = $service->getId();
         $em = $this->getDoctrine()->getManager();
-        $medecin = $em->getRepository('AppBundle:Medecin')->findBySpecialite($spec);
+        $medecin = $em->getRepository('AppBundle:Medecin')->findBySpecialite($spec,['name' => 'ASC']);
+        //$medecin = $em->getRepository('AppBundle:Medecin')->findBy([array('specialite' => $spec),array('name' => 'ASC')]);
+        //$medecin = $em->getRepository('AppBundle:Medecin')->findBy([], ['name' => 'ASC']);
+
             //var_dump($medecin);
         return $this->render('service/show.html.twig', array(
             'service' => $service, 'medecins' => $medecin

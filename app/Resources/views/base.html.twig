@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+
+        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -11,49 +14,109 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-default" role="navigation">
+  <style>
+  .navbar-login
+{
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.icon-size
+{
+  font-size: 87px;
+}
+  </style>
+  <div class="navbar navbar-default " role="navigation">
       <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a href="/" class="navbar-brand">Medical Center</a>
+          </div>
+          <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                {% if app.user != null %}
+                <li><a href="/nos-services">Nos services</a></li>
+                <li><a href="/nos-medecins">Prendre RDV</a></li>
+                <li><a href="#">Nos Statistiques</a></li>
+                 {% elseif app.user == null %}
+                  <li><a href="/login">Connexion</a></li>
 
-    </div>
+                 {% endif %}
+                 <li><a href="/contact">Contactez nous</a></li>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               </ul>
+               {% if app.user != null %}
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <span class="glyphicon glyphicon-user"></span> 
+                          <strong>{{app.user.name}}</strong>
+                          <span class="glyphicon glyphicon-chevron-down"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <div class="navbar-login">
+                                  <div class="row">
+                                      <div class="col-lg-4">
+                                          <p class="text-center">
+                                              <span class="glyphicon glyphicon-user icon-size"></span>
+                                          </p>
+                                      </div>
+                                      <div class="col-lg-8">
+                                          <p class="text-left"><strong>{{app.user.name}}</strong></p>
+                                          <p class="text-left small">{{app.user.email}}</p>
+                                          <p class="text-left">
+                                              <a href="/profil/{{app.user.role}}/{{app.user.id}}" class="btn btn-primary btn-block btn-sm">Profil</a>
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          {% if is_granted('ROLE_ADMIN') %}
+                          <li>
+                              <div class="navbar-login navbar-login-session">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <p>
+                                              <a href="/admin" class="btn btn-primary btn-block">Dashboard</a>
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          {% endif %}
+                          <li class="divider"></li>
+                          <li>
+                              <div class="navbar-login navbar-login-session">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <p>
+                                              <a href="/logout" class="btn btn-danger btn-block">Déconnexion</a>
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+              {% endif %}
+          </div>
+      </div>
+  </div>
 
-
-      <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="/">Accueil</a></li>
-       {% if app.user != null %}
-        <li><a href="/profil/{{app.user.role}}/{{app.user.id}}">Profil</a></li>
-       <li><a href="/logout">Deconnexion</a></li>
-       <li><a href="/nos-services">Nos services</a></li>
-       <li><a href="/nos-medecins">Prendre RDV</a></li>
-        {% elseif app.user == null %}
-         <li><a href="/login">Connexion</a></li>
-
-        {% endif %}
-        {% if is_granted('ROLE_ADMIN') %}
-        <li><a href="/admin">Dashboard</a></li>
-
-        {% endif %}
-        <li><a href="/contact">Contactez nous</a></li>
-        <li><a href="#">Nos Statistiques</a></li>
-
-
-
-
-
-      </ul>
-    </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-collapse -->
-  </nav>
 {% block body %}{% endblock %}
 {% block javascripts %}
 
@@ -316,110 +379,5 @@
 
 }
 
-
-
-/* Navigation */
-.navbar-default {
-  background-color: #011034;
-  border-color: #011034;
-  padding: 10px 0px 10px 0;
-  letter-spacing:1px;
-  font-weight:800;
-  text-transform: uppercase;
-      webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
-    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
-    -ms-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
-    -o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
-}
-.navbar-default {
-  background-color: #011034;
-  border-color: #011034;
-}
-.navbar-default .navbar-brand {
-  color: #ffffff;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-  color: #b40028;
-}
-.navbar-default .navbar-text {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #b40028;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu {
-  background-color: #011034;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-  color: #b40028;
-  background-color: #011034;
-}
-.navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
-  background-color: #011034;
-}
-.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-  color: #b40028;
-  background-color: #011034;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: #b40028;
-  background-color: #011034;
-}
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-  color: #b40028;
-  background-color: #011034;
-}
-.navbar-default .navbar-toggle {
-  border-color: #011034;
-}
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-  background-color: #011034;
-}
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #ffffff;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-  border-color: #ffffff;
-}
-.navbar-default .navbar-link {
-  color: #ffffff;
-}
-.navbar-default .navbar-link:hover {
-  color: #b40028;
-}
-
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ffffff;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #b40028;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #b40028;
-    background-color: #011034;
-  }
-}
 
 </style>

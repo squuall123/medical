@@ -81,8 +81,11 @@ class MainController extends Controller
       $id = $request->get('id');
         if ($role == "ROLE_PATIENT") {
           $em = $this->getDoctrine()->getManager();
-          $temp = $em->getRepository('AppBundle:Patient')->findById($id);
 
+          $temp = $em->getRepository('AppBundle:Patient')->findById($id);
+          //var_dump($temp[0]);
+          $traitements = $em->getRepository('AppBundle:Traitement')->findByPatient($temp[0]->getId());
+          //var_dump($traitements);
         $patient = new Patient();
         $editForm = $this->createForm('AppBundle\Form\PatientType',$temp[0]);
         $editForm->handleRequest($request);
@@ -95,10 +98,19 @@ class MainController extends Controller
 
         return $this->render('default/profil.html.twig', array(
             'utilisateur' => $patient,
+            'traitements' => $traitements,
             'edit_form' => $editForm->createView(),
         ));
         } else if($role == "ROLE_MEDECIN"){
+          $patients = array();
           $em = $this->getDoctrine()->getManager();
+          $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($id);
+
+          foreach ($consultations as $value) {
+            //var_dump($value->getIdPatient());
+            array_push($patients,$em->getRepository('AppBundle:Patient')->findById($value->getIdPatient()));
+          }
+          //var_dump($patients[0]);
           $temp = $em->getRepository('AppBundle:Medecin')->findById($id);
           $medecin = new Medecin();
         $editForm = $this->createForm('AppBundle\Form\MedecinType', $temp[0]);
@@ -112,6 +124,8 @@ class MainController extends Controller
 
         return $this->render('default/profil.html.twig', array(
             'utilisateur' => $medecin,
+            'consultations' => $consultations,
+            'patients' => $patients[0],
             'edit_form' => $editForm->createView(),
         ));
       }
