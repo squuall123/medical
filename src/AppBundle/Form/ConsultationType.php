@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ConsultationType extends AbstractType
 {
@@ -21,7 +22,7 @@ class ConsultationType extends AbstractType
     ->add('idMedecin',HiddenType::class)
     ->add('dateCreation',DateType::class,array('label' => false, 'format' => 'dd-MM-yyyy', 'disabled' => true , 'attr' => array('style' => 'display:none')))
     ->add('dateRDV',DateType::class)
-    ->add('description');
+    ->add('description',TextareaType::class);
     }/**
      * {@inheritdoc}
      */
