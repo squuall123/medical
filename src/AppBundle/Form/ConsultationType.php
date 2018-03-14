@@ -16,12 +16,18 @@ class ConsultationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nomPatient')
-    ->add('nomMedecin')
+        $builder->add('nomPatient',HiddenType::class)
+    ->add('nomMedecin',HiddenType::class)
     ->add('idPatient',HiddenType::class)
     ->add('idMedecin',HiddenType::class)
     ->add('dateCreation',DateType::class,array('label' => false, 'format' => 'dd-MM-yyyy', 'disabled' => true , 'attr' => array('style' => 'display:none')))
-    ->add('dateRDV',DateType::class)
+    ->add('dateRDV',DateType::class,array(
+
+    
+    'widget'=> 'single_text',
+      'days' => range(1,31),
+      'attr' => ['class' => 'js-datepicker'],
+    ))
     ->add('description',TextareaType::class);
     }/**
      * {@inheritdoc}

@@ -7,7 +7,7 @@
         <div class="prog-page">
          <div class="header-title header-btn">
         <div class="header-info">
-           <h2><i class="fa fa-info-circle"></i> Profile de {{medecin.name}} :</h2>
+           <h2><i class="fa fa-info-circle"></i> {{medecin.name}}'s Profil :</h2>
         </div>
 
         </div>
@@ -21,12 +21,13 @@
            <div class="prof-info">
 
            <div class="info"><label><i class="fa fa-user"></i> Name :</label>  <span>{{medecin.name}}</span></div>
-           <div class="info"><label><i class="fa fa-male"></i>Specialité :</label>  <span>{{medecin.specialite}}</span></div>
+           <div class="info"><label><i class="fa fa-male"></i>Specialty :</label>  <span>{{medecin.specialite}}</span></div>
            <div class="info"><label><i class="fa fa-user"></i> Email :</label>  <span>{{medecin.email}}</span></div>
-           <div class="info"><label><i class="fa fa-map-marker"></i>Numéro de téléphone:</label>  <span>{{medecin.phone}}</span></div>
-            <div class="info"><label><i class="fa fa-male"></i>Numéro de Sécurité Social:</label>  <span>{{medecin.ssn}}</span></div>
+           <div class="info"><label><i class="fa fa-map-marker"></i>Phone Number:</label>  <span>{{medecin.phone}}</span></div>
+            <div class="info"><label><i class="fa fa-male"></i>Social Security number
+:</label>  <span>{{medecin.ssn}}</span></div>
             <div class="info">
-                <a href="/consultation/new/{{medecin.id}}/{{app.user.id}}" class="btn btn-danger">Prendre RDV</a>
+                <a href="/consultation/new/{{medecin.id}}/{{app.user.id}}" class="btn btn-danger">Make an appointement</a>
 
             </div>
 

@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{patient.name}}'s Profil {% endblock %}
 {% block body %}
 
 
@@ -7,7 +7,7 @@
             <div class="prog-page">
              <div class="header-title header-btn">
             <div class="header-info">
-               <h2><i class="fa fa-info-circle"></i> Profile de {{patient.name}} :</h2>
+               <h2><i class="fa fa-info-circle"></i> {{patient.name}}'s Profil :</h2>
             </div>
 
             </div>
@@ -20,13 +20,13 @@
 
                <div class="prof-info">
 
-               <div class="info"><label><i class="fa fa-user"></i> Nom :</label>  <span>{{patient.name}}</span></div>
+               <div class="info"><label><i class="fa fa-user"></i> Name :</label>  <span>{{patient.name}}</span></div>
                <div class="info"><label><i class="fa fa-user"></i> Email :</label>  <span>{{patient.email}}</span></div>
-               <div class="info"><label><i class="fa fa-map-marker"></i>Numéro de téléphone:</label>  <span>{{patient.phone}}</span></div>
-                <div class="info"><label><i class="fa fa-male"></i>Numéro de Sécurité Social:</label>  <span>{{patient.ssn}}</span></div>
+               <div class="info"><label><i class="fa fa-map-marker"></i>Phone Number:</label>  <span>{{patient.phone}}</span></div>
+                <div class="info"><label><i class="fa fa-male"></i>Social Security Number:</label>  <span>{{patient.ssn}}</span></div>
                 {% if app.user.role != 'ROLE_PATIENT' %}
                 <br>
-                <a href="/traitement/new/{{app.user.id}}" class="btn btn-success">Ajouter Traitement</a>
+                <a href="/traitement/new/{{app.user.id}}" class="btn btn-success">Add Treatment</a>
                 {% endif %}
                 </div>
 

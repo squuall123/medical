@@ -44,6 +44,8 @@ class Admin implements UserInterface
      */
     protected $password;
 
+    
+
     public function eraseCredentials()
     {
         return null;
