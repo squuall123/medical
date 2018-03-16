@@ -7,16 +7,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.js" charset="utf-8"></script>
 <script type="text/javascript">
         $(document).ready(function() {
-
+          console.log("{{ disabledDates | join(', ') }}");
             $('.js-datepicker').flatpickr({
                 utc: true,
-                enableTime: true,
+                enableTime: false,
                 disable: ["{{ disabledDates|join(', ') }}"],
                 dateFormat: "Y/m/d",
             });
         });
 </script>
-
 
 
 <div class="jumbotron">

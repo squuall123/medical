@@ -102,6 +102,7 @@ class ConsultationController extends Controller
           foreach ($consultations as $temp) {
             $date = $temp->getDateRDV();
             array_push($datesToDisable,date_format($date,"Y/m/d"));
+            //echo date_format($date,"Y/m/d");
             //var_dump($date);
           }
 
