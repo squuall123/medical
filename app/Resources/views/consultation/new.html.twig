@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
 {% block title %}Make an Appointement{% endblock %}
 
+
 {% block body %}
-<script>
-$(document).ready(function() {
-       // configure the bootstrap datepicker
-       $('.js-datepicker').datepicker({
-           format: 'yyyy-mm-dd',
-           startDate: '-3d'
-       });
-   });
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.js-datepicker').flatpickr({
+                utc: true,
+                enableTime: true,
+                disable: ["{{ disabledDates|join(', ') }}"],
+                dateFormat: "Y/m/d",
+            });
+        });
 </script>
+
+
+
 <div class="jumbotron">
         <div class="container">
              <h1><center>Appointement:</center> </h1>
@@ -41,43 +49,14 @@ $(document).ready(function() {
                     </div>
                     <div class="row">
                     <div class="col-md-12">
-                  <button type="submit" class="btn btn-success">Chek availability</button>
+                  <input type="submit" value="Create" />
                   </div>
                   </div>
-                </form>
+
 	</div>
+{{ form_end(form) }}
 </div>
-
-          {{ form_widget(form.nomPatient) }}
-
-          {{ form_widget(form.nomMedecin) }}
-
-
-
-
-
-
-
-
-
-    {{ form_end(form) }}
     </div>
 </div>
-{% block stylesheets %}
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
 
-
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-    <script>
-        jQuery(document).ready(function() {
-            $('.js-datepicker').datepicker();
-        });
-    </script>
-
-
-{% endblock %}
 {% endblock %}

@@ -105,29 +105,52 @@ class MainController extends Controller
           $patients = array();
           $em = $this->getDoctrine()->getManager();
           $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($id);
+          if (empty($consultations)) {
+            //var_dump($patients[0]);
+            $temp = $em->getRepository('AppBundle:Medecin')->findById($id);
+            $medecin = new Medecin();
+          $editForm = $this->createForm('AppBundle\Form\MedecinType', $temp[0]);
+          $editForm->handleRequest($request);
 
-          foreach ($consultations as $value) {
-            //var_dump($value->getIdPatient());
-            array_push($patients,$em->getRepository('AppBundle:Patient')->findById($value->getIdPatient()));
+          if ($editForm->isSubmitted() && $editForm->isValid()) {
+              $this->getDoctrine()->getManager()->flush();
+
+              return $this->redirectToRoute('welcome');
           }
-          //var_dump($patients[0]);
-          $temp = $em->getRepository('AppBundle:Medecin')->findById($id);
-          $medecin = new Medecin();
-        $editForm = $this->createForm('AppBundle\Form\MedecinType', $temp[0]);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+          return $this->render('default/profil.html.twig', array(
+              'utilisateur' => $medecin,
+              'consultations' => null,
+              'patients' => null,
+              'edit_form' => $editForm->createView(),
+          ));
+          }
+          else {
+            foreach ($consultations as $value) {
+              //var_dump($value->getIdPatient());
+              array_push($patients,$em->getRepository('AppBundle:Patient')->findById($value->getIdPatient()));
+            }
+            //var_dump($patients[0]);
+            $temp = $em->getRepository('AppBundle:Medecin')->findById($id);
+            $medecin = new Medecin();
+          $editForm = $this->createForm('AppBundle\Form\MedecinType', $temp[0]);
+          $editForm->handleRequest($request);
 
-            return $this->redirectToRoute('welcome');
-        }
+          if ($editForm->isSubmitted() && $editForm->isValid()) {
+              $this->getDoctrine()->getManager()->flush();
 
-        return $this->render('default/profil.html.twig', array(
-            'utilisateur' => $medecin,
-            'consultations' => $consultations,
-            'patients' => $patients[0],
-            'edit_form' => $editForm->createView(),
-        ));
+              return $this->redirectToRoute('welcome');
+          }
+
+          return $this->render('default/profil.html.twig', array(
+              'utilisateur' => $medecin,
+              'consultations' => $consultations,
+              'patients' => $patients[0],
+              'edit_form' => $editForm->createView(),
+          ));
+          }
+
+
       }
       else if($role == "ROLE_ADMIN"){
         //$admin = new Admin();

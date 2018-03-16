@@ -40,6 +40,48 @@ class ConsultationController extends Controller
      */
     public function newAction(Request $request)
     {
+        //TODO fixing other roles !!
+
+
+        if ($this->getUser()->getRole() == "ROLE_ADMIN") {
+          # ADMIN
+
+          $idPatient = $this->getUser()->getId();
+          $idMedecin = $request->get('medecinid');
+            $em = $this->getDoctrine()->getManager();
+            $medecin = $em->getRepository('AppBundle:Medecin')->findOneById($idMedecin);
+            $patient = $em->getRepository('AppBundle:Admin')->findOneById($idPatient);
+              //var_dump($medecin[0]);
+              //var_dump($medecin);;
+            $consultation = new Consultation();
+            $consultation->setIdPatient($idPatient);
+            $consultation->setIdMedecin($idMedecin);
+            $consultation->setNomPatient($patient->getName());
+            $consultation->setNomMedecin($medecin->getName());
+            $date = new \DateTime("now");
+            $consultation->setDateCreation($date);
+            $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation, array(
+              'entity_manager' => $em,
+              'medecinId' => $idMedecin,
+            ));
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($consultation);
+                $em->flush();
+
+                return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
+            }
+
+            return $this->render('consultation/new.html.twig', array(
+                'consultation' => $consultation,
+                'form' => $form->createView(),
+            ));
+
+        }
+
+
       $idPatient = $request->get('patientid');
       $idMedecin = $request->get('medecinid');
         $em = $this->getDoctrine()->getManager();
@@ -54,7 +96,20 @@ class ConsultationController extends Controller
         $consultation->setNomMedecin($medecin->getName());
         $date = new \DateTime("now");
         $consultation->setDateCreation($date);
-        $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation);
+          //fetching consultations
+          $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($idMedecin);
+          $datesToDisable = array();
+          foreach ($consultations as $temp) {
+            $date = $temp->getDateRDV();
+            array_push($datesToDisable,date_format($date,"Y/m/d"));
+            //var_dump($date);
+          }
+
+
+        $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation, array(
+          'entity_manager' => $em,
+          'medecinId' => $idMedecin,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,6 +123,7 @@ class ConsultationController extends Controller
         return $this->render('consultation/new.html.twig', array(
             'consultation' => $consultation,
             'form' => $form->createView(),
+            'disabledDates' => $datesToDisable,
         ));
     }
 

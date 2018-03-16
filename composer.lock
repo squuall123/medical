@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "38ff5e51896078e1a2a80fb08cb51757",
+    "content-hash": "a74d2322f7051174da0b8ebe6d11118e",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1025,6 +1025,7 @@
                 "backend",
                 "generator"
             ],
+            "abandoned": "easycorp/easyadmin-bundle",
             "time": "2018-02-10T11:44:58+00:00"
         },
         {
@@ -1205,6 +1206,49 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
+        },
+        {
+            "name": "mwsimple/scdatetimepicker-bundle",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MWSimple/SCDatetimepickerBundle.git",
+                "reference": "ad9d188e541c135eacccfb2f83967bc15fbf793e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MWSimple/SCDatetimepickerBundle/zipball/ad9d188e541c135eacccfb2f83967bc15fbf793e",
+                "reference": "ad9d188e541c135eacccfb2f83967bc15fbf793e",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "~2.8 || ~3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SC\\DatetimepickerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephane Collot"
+                }
+            ],
+            "description": "Symfony bundle for Bootstrap DateTime picker",
+            "keywords": [
+                "bootstrap",
+                "bundle",
+                "datepicker",
+                "picker",
+                "symfony",
+                "timepicker"
+            ],
+            "time": "2017-12-07T15:56:41+00:00"
         },
         {
             "name": "ocramius/package-versions",

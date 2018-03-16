@@ -37,6 +37,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_theme: AppBundle:Form:datetimepicker_widget.html.twig
 
 # Doctrine Configuration
 doctrine:
@@ -95,3 +96,5 @@ easy_admin:
             # if you prefer, set labels to false
             # - { name: 'show', icon: 'search', label: false }
             # - { name: 'edit', icon: 'pencil', label: false }
+sc_datetimepicker:
+    picker: ~
