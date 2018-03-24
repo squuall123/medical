@@ -98,3 +98,14 @@ easy_admin:
             # - { name: 'edit', icon: 'pencil', label: false }
 sc_datetimepicker:
     picker: ~
+
+fos_rest:
+    routing_loader:
+        include_format: false
+    view:
+        view_response_listener: true
+    format_listener:
+        rules:
+            - { path: '^/api/patients', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/api/patient', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/', priorities: ['html'], fallback_format: 'json' }

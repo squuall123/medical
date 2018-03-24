@@ -29,7 +29,7 @@ class MainController extends Controller
         return $this->render('default/contact.html.twig');
     }
 
-        /**
+    /**
     * @Route("/nos-services", name="services")
     */
     public function showServicesAction(Request $request)
