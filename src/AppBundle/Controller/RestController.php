@@ -52,6 +52,66 @@ class RestController extends Controller
 
   /**
   * @Rest\View()
+  * @Get("/api/profile/{mail}")
+  */
+  public function getprofilePatientAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $profile = $em->getRepository('AppBundle:Patient')->findOneByEmail($request->get('mail'));
+
+    return $profile;
+
+  }
+
+  /**
+  * @Rest\View()
+  * @Get("/api/medecin/{id}")
+  */
+  public function getMedecinAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $medecin = $em->getRepository('AppBundle:Medecin')->findOneById($request->get('id'));
+
+    return $medecin;
+
+  }
+
+  /**
+  * @Rest\View()
+  * @Get("/api/medecins/{specialite}")
+  */
+  public function getMedecinParSpecialiteAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $medecins = $em->getRepository('AppBundle:Medecin')->findBySpecialite($request->get('specialite'));
+
+    return $medecins;
+
+  }
+
+  /**
+  * @Rest\View()
+  * @Get("/api/service/{id}")
+  */
+  public function getServiceAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $service = $em->getRepository('AppBundle:Service')->findOneById($request->get('id'));
+
+    return $service;
+
+  }
+
+  /**
+  * @Rest\View()
   * @Get("/api/patient/{id}")
   */
   public function getPatientByIdAction(Request $request)
@@ -62,6 +122,24 @@ class RestController extends Controller
     $patient = $em->getRepository('AppBundle:Patient')->findById($request->get('id'));
 
     return $patient;
+
+  }
+
+  /**
+  * @Rest\View()
+  * @Get("/api/patient/traitements/{id}")
+  */
+  public function gettraitementsAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $temp = $em->getRepository('AppBundle:Patient')->findById($request->get('id'));
+    //var_dump($temp[0]);
+    $traitements = $em->getRepository('AppBundle:Traitement')->findByPatient($temp[0]->getId());
+    //$patient = $em->getRepository('AppBundle:Patient')->findById($request->get('id'));
+
+    return $traitements;
 
   }
 
