@@ -162,4 +162,139 @@ class RestController extends Controller
 
   }
 
+  /**
+* @Rest\View()
+* @Post("/api/register")
+*/
+public function registerAction(Request $request)
+{
+      $user = new User();
+      $form = $this->createForm(UserType::class, $user);
+
+  if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
+
+      // Encode the new users password
+      $encoder = $this->get('security.password_encoder');
+      $password = $encoder->encodePassword($user, $user->getPlainPassword());
+      $user->setPassword($password);
+
+      // Set their role
+      $user->setRole('ROLE_USER');
+
+      // Save
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($user);
+      $em->flush();
+
+
+      return new Response($user->getId());
+  }
+  else {
+    //return new Response('not created user');
+    return new Response('error');
+  }
+  //return new Response($data['test']);
+
+}
+
+
+/**
+* @Rest\View()
+* @Post("/api/login")
+*/
+public function loginAction(Request $request)
+{
+     $username = $request->getUser();
+     $password = $request->getPassword();
+
+     $em = $this->getDoctrine()->getManager();
+     $user = $em->getRepository('AppBundle:Patient')->findOneByName($username);
+
+     if (!$user) {
+       return new Response( Response::HTTP_NOT_FOUND);
+         //throw $this->createNotFoundException();
+     }
+
+     $isValid = $this->get('security.password_encoder')
+         ->isPasswordValid($user, $password);
+
+     if (!$isValid) {
+       return new Response(Response::HTTP_UNAUTHORIZED);
+         //throw new BadCredentialsException();
+     }
+
+     $token = $this->getToken($user);
+     $response = new Response($this->serialize(['token' => $token]), Response::HTTP_OK);
+
+     return $this->setBaseHeaders($response);
+
+}
+
+/**
+* Returns token for user.
+*
+* @param User $user
+*
+* @return array
+*/
+public function getToken(User $user)
+{/*
+  return $this->container->get('lexik_jwt_authentication.encoder.default')
+          ->encode([
+              'username' => $user->getName(),
+              'exp' => $this->getTokenExpiryDateTime(),
+          ]);
+          */
+
+          return $this->container->get('lexik_jwt_authentication.encoder.default')
+                  ->encode([
+                      'username' => $user->getName(),
+                      'exp' => $this->getTokenExpiryDateTime(),
+                  ]);
+}
+
+/**
+* Returns token expiration datetime.
+*
+* @return string Unixtmestamp
+*/
+private function getTokenExpiryDateTime()
+{
+  $tokenTtl = $this->container->getParameter('lexik_jwt_authentication.token_ttl');
+  $now = new \DateTime();
+  $now->add(new \DateInterval('PT'.$tokenTtl.'S'));
+
+  return $now->format('U');
+}
+/**
+ * Set base HTTP headers.
+ *
+ * @param Response $response
+ *
+ * @return Response
+ */
+private function setBaseHeaders(Response $response)
+{
+    $response->headers->set('Content-Type', 'application/json');
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+    return $response;
+}
+
+/**
+* Data serializing via JMS serializer.
+*
+* @param mixed $data
+*
+* @return string JSON string
+*/
+public function serialize($data)
+{
+  $context = new SerializationContext();
+  $context->setSerializeNull(true);
+
+  return $this->get('jms_serializer')
+      ->serialize($data, 'json', $context);
+}
+
 }
