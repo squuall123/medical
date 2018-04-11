@@ -168,8 +168,8 @@ class RestController extends Controller
 */
 public function registerAction(Request $request)
 {
-      $user = new User();
-      $form = $this->createForm(UserType::class, $user);
+      $user = new Patient();
+      $form = $this->createForm(PatientType::class, $user);
 
   if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
 
@@ -179,7 +179,7 @@ public function registerAction(Request $request)
       $user->setPassword($password);
 
       // Set their role
-      $user->setRole('ROLE_USER');
+      $user->setRole('ROLE_PATIENT');
 
       // Save
       $em = $this->getDoctrine()->getManager();

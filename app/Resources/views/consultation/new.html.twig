@@ -3,19 +3,31 @@
 
 
 {% block body %}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.js" charset="utf-8"></script>
+
 <script type="text/javascript">
         $(document).ready(function() {
-          console.log("{{ disabledDates | join(', ') }}");
+
+          var arr = ["{{ disabledDates | join(',') }}"];
+          console.log("{{ disabledDates | join(',') }}".split(','));
+
+          console.log("date = " + Date.now());
             $('.js-datepicker').flatpickr({
                 utc: true,
-                enableTime: false,
-                disable: ["{{ disabledDates|join(', ') }}"],
+                enableTime: true,
+                disable: "{{ disabledDates | join(',') }}".split(','),
                 dateFormat: "Y/m/d",
+                minDate: Date.now(),
+                minTime: "08:00",
+                maxTime: "18:00",
+                time_24hr: true
             });
         });
 </script>
+
+
 
 
 <div class="jumbotron">
@@ -32,8 +44,8 @@
                     <div class="row">
                     	<div class="col-md-6">
                   		<div class="form-group">
-                      {{ form_label(form.dateRDV) }}
-                      {{ form_widget(form.dateRDV) }}
+                          {{ form_label(form.dateRDV) }}
+                          {{ form_widget(form.dateRDV) }}
                   		</div>
                   	</div>
                   	</div>
