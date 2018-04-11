@@ -7,3 +7,9 @@ services:
     app.form_login_authenticator:
         class: AppBundle\Security\FormLoginAuthenticator
         arguments: ["@router", "@security.password_encoder"]
+
+    app_bundle.service.listener:
+        class: AppBundle\Listener\LoadDataListener
+        arguments: [ "@doctrine.orm.entity_manager" , "@security.token_storage"]
+        tags:
+          - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }

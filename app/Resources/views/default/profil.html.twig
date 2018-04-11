@@ -291,9 +291,16 @@ $(document).ready( function () {
                          <div class="add-panel-{{consultation.id}} panel panel-default" style="display:none">
                            <div class="panel-body">
                              <h3>Date RDV : {{consultation.dateRDV|date('Y-m-d')}}</h3>
+                             <h3>Time RDV : {{consultation.timeRDV|date('h:i')}}</h3>
                              <h3>Description : {{consultation.description}}</h3>
+                             <h3>Etat : {% if consultation.etat == false %} Not confirmed {% else %} Confirmed {% endif %}</h3>
                              <div class="col-md-9 col-lg-push-3">
+                               {% if consultation.etat == false %}
+                               <a href="/consultation/validate/{{consultation.id}}" class="btn btn-warning">Validate</a>
+                               <a href="/consultation/refuse/{{consultation.id}}" class="btn btn-danger">Refuse</a>
+                               {% else %}
                                <a href="/consultation/{{consultation.id}}" class="btn-add-submit btn btn-success">Voir consultation</a>
+                               {% endif %}
                              </div>
 
                            </div>
@@ -360,6 +367,16 @@ $(document).ready( function () {
 
 
                                 <!-- Calendar -->
+                                <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
+                                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                                <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.default-settings.js') }}"></script>
+                                <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
+                                <div class="container">
+                                  {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+                                </div>
 
 
 

@@ -59,14 +59,26 @@ class Consultation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateRDV", type="datetime")
+     * @ORM\Column(name="dateRDV", type="date")
      */
     private $dateRDV;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="timeRDV", type="time")
+     */
+    private $timeRDV;
 
     /**
      * @ORM\Column(type="string", length=255, unique=false)
      */
     protected $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $etat;
 
 
     /**
@@ -245,5 +257,53 @@ class Consultation
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set timeRDV
+     *
+     * @param \DateTime $timeRDV
+     *
+     * @return Consultation
+     */
+    public function setTimeRDV($timeRDV)
+    {
+        $this->timeRDV = $timeRDV;
+
+        return $this;
+    }
+
+    /**
+     * Get timeRDV
+     *
+     * @return \DateTime
+     */
+    public function getTimeRDV()
+    {
+        return $this->timeRDV;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param boolean $etat
+     *
+     * @return Consultation
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return boolean
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }

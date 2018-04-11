@@ -9,7 +9,7 @@
      <div class="prog-page">
         <div class="header-title header-btn">
          <div class="header-info">
-          <h2><i class="fa fa-info-circle"></i> Consultation de {{app.user.name}} :</h2>
+          <h2><i class="fa fa-info-circle"></i> Consultation de {{consultation.nomPatient}} :</h2>
          </div>
 
          </div>
@@ -31,9 +31,13 @@
               <div class="info"><label><i class="fa fa-user"></i> Date Création </label> {% if consultation.dateCreation %}{{ consultation.dateCreation|date('Y-m-d H:i:s') }}{% endif %} <span>
               </span></div>
 
-              <div class="info"><label><i class="fa fa-user"></i> Date RDV </label> {% if consultation.dateRDV %}{{ consultation.dateRDV|date('Y-m-d H:i:s') }}{% endif %} <span>
+              <div class="info"><label><i class="fa fa-user"></i> Date RDV </label> {% if consultation.dateRDV %}{{ consultation.dateRDV|date('Y-m-d') }}{% endif %} <span>
               </span></div>
 
+              <div class="info"><label><i class="fa fa-user"></i> Time RDV </label> {% if consultation.timeRDV %}{{ consultation.timeRDV|date('h:i') }}{% endif %} <span>
+              </span></div>
+
+              
              </div>
              </div>
 

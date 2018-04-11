@@ -12,3 +12,6 @@ myapplication_contact:
 rest:
     type:     rest
     resource: '@AppBundle/Controller/RestController.php'
+
+ancarebeca_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yml"

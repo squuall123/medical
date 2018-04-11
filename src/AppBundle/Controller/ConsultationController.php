@@ -33,6 +33,43 @@ class ConsultationController extends Controller
     }
 
     /**
+     * Lists all consultation entities.
+     * @Route("/validate/{id}", name="consultation_validate")
+     * @Method("GET")
+     */
+    public function validateAction(Request $request)
+    {
+      $id = $request->get('id');
+      $em = $this->getDoctrine()->getManager();
+      $consultation = $em->getRepository('AppBundle:Consultation')->findOneById($id);
+      $consultation->setEtat(true);
+      $em->persist($consultation);
+      $em->flush();
+      //return var_dump($consultation);
+      //$deleteForm = $this->createDeleteForm($consultation);
+
+      return $this->redirectToRoute('utilisateur_edit', array('id' => $this->getUser()->getId(), 'role' => $this->getUser()->getRole()));
+    }
+
+    /**
+     * Lists all consultation entities.
+     * @Route("/refuse/{id}", name="consultation_refuse")
+     * @Method("GET")
+     */
+    public function refuseAction(Request $request)
+    {
+      $id = $request->get('id');
+      $em = $this->getDoctrine()->getManager();
+      $consultation = $em->getRepository('AppBundle:Consultation')->findOneById($id);
+      $em->remove($consultation);
+      $em->flush();
+      //return var_dump($consultation);
+      //$deleteForm = $this->createDeleteForm($consultation);
+
+      return $this->redirectToRoute('utilisateur_edit', array('id' => $this->getUser()->getId(), 'role' => $this->getUser()->getRole()));
+    }
+
+    /**
      * Creates a new consultation entity.
      *
      * @Route("/new/{medecinid}/{patientid}", name="consultation_new")
@@ -96,8 +133,11 @@ class ConsultationController extends Controller
         $consultation->setNomMedecin($medecin->getName());
         $date = new \DateTime("now");
         $consultation->setDateCreation($date);
+        $consultation->setEtat(false);
+
           //fetching consultations
           $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($idMedecin);
+/*
           $datesToDisable = array();
           foreach ($consultations as $temp) {
             $date = $temp->getDateRDV();
@@ -105,7 +145,7 @@ class ConsultationController extends Controller
             //echo date_format($date,"Y/m/d");
             //var_dump($date);
           }
-
+*/
 
         $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation, array(
           'entity_manager' => $em,
@@ -124,7 +164,7 @@ class ConsultationController extends Controller
         return $this->render('consultation/new.html.twig', array(
             'consultation' => $consultation,
             'form' => $form->createView(),
-            'disabledDates' => $datesToDisable,
+            //'disabledDates' => $datesToDisable,
         ));
     }
 

@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+
 use AppBundle\Form\Type\DateTimePickerType;
 
 
@@ -34,11 +36,16 @@ class ConsultationType extends AbstractType
     ->add('nomMedecin',HiddenType::class)
     ->add('idPatient',HiddenType::class)
     ->add('idMedecin',HiddenType::class)
-    ->add('dateCreation',DateType::class,array('label' => false, 'format' => 'dd-MM-yyyy', 'disabled' => true , 'attr' => array('style' => 'display:none')))
-    ->add('dateRDV',DateTimeType::class,array(
+    ->add('dateCreation',DateTimeType::class,array('label' => false, 'format' => 'dd-MM-yyyy', 'disabled' => true , 'attr' => array('style' => 'display:none')))
+    ->add('dateRDV',DateType::class,array(
       'widget' => 'single_text',
       'html5' => false,
       'attr' => ['class' => 'js-datepicker'],
+    ))
+    ->add('timeRDV',TimeType::class,array(
+      'widget' => 'single_text',
+      'html5' => false,
+      'attr' => ['class' => 'js-timepicker'],
     ))
     ->add('description',TextareaType::class);
     }/**

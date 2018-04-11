@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
 
         ];
 
