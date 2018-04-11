@@ -2,7 +2,7 @@
 
 {% block body %}
 
-
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 
 <div class="container">
 	<div class="row">
@@ -38,13 +38,26 @@
             {{ form_end(delete_form) }}
           </fieldset>
           </form>
+
+					<a id="save" class="btn-save btn btn-success">Download as PDF</a>
         </div>
       </div>
 	</div>
 </div>
 
+<script type="text/javascript">
+var doc = new jsPDF()
+doc.text('hello word', 100, 10)
+doc.text(35, 25, 'Logo')
 
 
+$(".btn-save").click(function() {
+	console.log("clicked");
+	doc.save('test.pdf')
+});
+//doc.output('datauri')
+//console.log(doc.output('datauri'));
+</script>
 
 
 

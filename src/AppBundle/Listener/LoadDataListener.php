@@ -47,7 +47,7 @@ class LoadDataListener
                   $result = $merge->format('Y-m-d H:i');
                   //var_dump($result);
                   //$final = date('Y-m-d H:i', $merge->format('Y-m-d H:i'));
-                  $event = new Event($consultation->getDescription(), new \DateTime("now"));
+                  $event = new Event($consultation->getDescription(), $merge);
                   $endTime = clone $merge;
 
                   $endTime->add(new \DateInterval('PT30M'));
