@@ -80,7 +80,7 @@ class ConsultationController extends Controller
         //TODO fixing other roles !!
 
 
-        if ($this->getUser()->getRole() == "ROLE_ADMIN") {
+        if ($this->getUser()->getRole() == "ROLE_ADMIN")  {
           # ADMIN
 
           $idPatient = $this->getUser()->getId();
@@ -92,6 +92,44 @@ class ConsultationController extends Controller
               //var_dump($medecin);;
             $consultation = new Consultation();
             $consultation->setIdPatient($idPatient);
+            $consultation->setIdMedecin($idMedecin);
+            $consultation->setNomPatient($patient->getName());
+            $consultation->setNomMedecin($medecin->getName());
+            $date = new \DateTime("now");
+            $consultation->setDateCreation($date);
+            $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation, array(
+              'entity_manager' => $em,
+              'medecinId' => $idMedecin,
+            ));
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($consultation);
+                $em->flush();
+
+                return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
+            }
+
+            return $this->render('consultation/new.html.twig', array(
+                'consultation' => $consultation,
+                'form' => $form->createView(),
+            ));
+
+        }
+
+        if ($this->getUser()->getRole() == "ROLE_MEDECIN")  {
+          # ADMIN
+
+          $idPatientMedecin = $this->getUser()->getId();
+          $idMedecin = $request->get('medecinid');
+            $em = $this->getDoctrine()->getManager();
+            $medecin = $em->getRepository('AppBundle:Medecin')->findOneById($idMedecin);
+            $patient = $em->getRepository('AppBundle:Medecin')->findOneById($idPatientMedecin);
+              //var_dump($medecin[0]);
+              //var_dump($medecin);;
+            $consultation = new Consultation();
+            $consultation->setIdPatient($idPatientMedecin);
             $consultation->setIdMedecin($idMedecin);
             $consultation->setNomPatient($patient->getName());
             $consultation->setNomMedecin($medecin->getName());

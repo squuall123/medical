@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title%}Profil de {{app.user.name}}{% endblock %}
+{% block title%}{{app.user.name}}'s profil{% endblock %}
 
 {% block body %}
 
@@ -123,18 +123,18 @@
 
                 <div class="prof-info">
 
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.name) }}</label>  <span>            {{ form_widget(edit_form.name) }}
+                 <div class="info"><label><i class="fa fa-user"></i>FullName : </label>  <span>            {{ form_widget(edit_form.name) }}
                  </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.email) }}</label>  <span>            {{ form_widget(edit_form.email) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Email : </label>  <span>            {{ form_widget(edit_form.email) }}
                  </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.plainPassword.first) }}</label>  <span>            {{ form_widget(edit_form.plainPassword.first) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Password : </label>  <span>            {{ form_widget(edit_form.plainPassword.first) }}
                  </span></div>
 
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.plainPassword.second) }}</label>  <span>            {{ form_widget(edit_form.plainPassword.second) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Confirm Password : </label>  <span>            {{ form_widget(edit_form.plainPassword.second) }}
                  </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.ssn) }}</label>  <span>            {{ form_widget(edit_form.ssn) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Social Security Number : </label>  <span>            {{ form_widget(edit_form.ssn) }}
                  </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.phone) }}</label>  <span>            {{ form_widget(edit_form.phone) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Phone Number : </label>  <span>            {{ form_widget(edit_form.phone) }}
                  </span></div>
 
                  <div class="info"><input type="submit" value="Edit" class="btn btn-warning" /></div>
@@ -177,7 +177,7 @@ $(document).ready( function () {
                                <h3>Description : {{traitement.contenu}}</h3>
 
                                <div class="col-md-9 col-lg-push-3">
-                                 <a href="/traitement/{{traitement.id}}" class="btn-add-submit btn btn-success">Voir traitement</a>
+                                 <a href="/traitement/{{traitement.id}}" class="btn-add-submit btn btn-success">See treatment</a>
                                </div>
 
                              </div>
@@ -210,7 +210,7 @@ $(document).ready( function () {
         <div class="prog-page">
            <div class="header-title header-btn">
             <div class="header-info">
-             <h2><i class="fa fa-info-circle"></i> Profile de {{app.user.name}} :</h2>
+             <h2><i class="fa fa-info-circle"></i>{{app.user.name}}' Profil :</h2>
             </div>
 
             </div>
@@ -224,23 +224,25 @@ $(document).ready( function () {
 
                 <div class="prof-info">
 
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.name) }}</label>  <span>            {{ form_widget(edit_form.name) }}
+                 <div class="info"><label><i class="fa fa-user"></i>FullName : </label>  <span>
+                  {{ form_widget(edit_form.name) }}
                  </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.email) }}</label>  <span>            {{ form_widget(edit_form.email) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Email : </label>  <span>
+                 {{ form_widget(edit_form.email) }}
                  </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.plainPassword.first) }}</label>  <span>            {{ form_widget(edit_form.plainPassword.first) }}
-                 </span></div>
-
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.plainPassword.second) }}</label>  <span>            {{ form_widget(edit_form.plainPassword.second) }}
-                 </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.ssn) }}</label>  <span>            {{ form_widget(edit_form.ssn) }}
-                 </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.phone) }}</label>  <span>            {{ form_widget(edit_form.phone) }}
-                 </span></div>
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form.specialite) }}</label>  <span>            {{ form_widget(edit_form.specialite) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Password : </label>  <span>            {{ form_widget(edit_form.plainPassword.first) }}
                  </span></div>
 
-                 <div class="info"><label><i class="fa fa-user"></i> {{ form_label(edit_form. justificatifFile) }}</label>  <span>            {{ form_widget(edit_form. justificatifFile) }}
+                 <div class="info"><label><i class="fa fa-user"></i>Confirm Password : </label>  <span>            {{ form_widget(edit_form.plainPassword.second) }}
+                 </span></div>
+                 <div class="info"><label><i class="fa fa-user"></i>Social Security Number : </label>  <span>            {{ form_widget(edit_form.ssn) }}
+                 </span></div>
+                 <div class="info"><label><i class="fa fa-user"></i>Phone Number : </label>  <span>            {{ form_widget(edit_form.phone) }}
+                 </span></div>
+                 <div class="info"><label><i class="fa fa-user"></i>Speciality : </label>  <span>            {{ form_widget(edit_form.specialite) }}
+                 </span></div>
+
+                 <div class="info"><label><i class="fa fa-user"></i>Jusitifcation File :</label>  <span>            {{ form_widget(edit_form. justificatifFile) }}
                  </span></div>
 
                  <div class="info"><input type="submit" value="Edit" class="btn btn-warning" /></div>
@@ -290,16 +292,16 @@ $(document).ready( function () {
 
                          <div class="add-panel-{{consultation.id}} panel panel-default" style="display:none">
                            <div class="panel-body">
-                             <h3>Date RDV : {{consultation.dateRDV|date('Y-m-d')}}</h3>
-                             <h3>Time RDV : {{consultation.timeRDV|date('h:i')}}</h3>
+                             <h3>Date : {{consultation.dateRDV|date('Y-m-d')}}</h3>
+                             <h3>Time : {{consultation.timeRDV|date('h:i')}}</h3>
                              <h3>Description : {{consultation.description}}</h3>
-                             <h3>Etat : {% if consultation.etat == false %} Not confirmed {% else %} Confirmed {% endif %}</h3>
+                           <h3>Status : {% if consultation.etat == false %} Not confirmed {% else %} Confirmed {% endif %}</h3>
                              <div class="col-md-9 col-lg-push-3">
                                {% if consultation.etat == false %}
                                <a href="/consultation/validate/{{consultation.id}}" class="btn btn-warning">Validate</a>
                                <a href="/consultation/refuse/{{consultation.id}}" class="btn btn-danger">Refuse</a>
                                {% else %}
-                               <a href="/consultation/{{consultation.id}}" class="btn-add-submit btn btn-success">Voir consultation</a>
+                               <a href="/consultation/{{consultation.id}}" class="btn-add-submit btn btn-success">see consultation</a>
                                {% endif %}
                              </div>
 
@@ -340,10 +342,10 @@ $(document).ready( function () {
 
                                          <div class="add-panel-{{patient.id}} panel panel-default" style="display:none">
                                            <div class="panel-body">
-                                             <h3>Téléphone : {{patient.phone}}</h3>
+                                             <h3>Phone Number : {{patient.phone}}</h3>
                                              <h3>Email : {{patient.email}}</h3>
                                              <div class="col-md-9 col-lg-push-3">
-                                               <a href="/patient/{{patient.id}}" class="btn-add-submit btn btn-success">Voir Patient</a>
+                                               <a href="/patient/{{patient.id}}" class="btn-add-submit btn btn-success">see Patient</a>
                                              </div>
 
                                            </div>

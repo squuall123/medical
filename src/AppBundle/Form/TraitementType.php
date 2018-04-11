@@ -15,7 +15,7 @@ class TraitementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')->add('contenu')->add('medecinId',HiddenType::class)->add('patient');
+        $builder->add('titre')->add('contenu')->add('medecinId',HiddenType::class)->add('patient',HiddenType::class);
     }/**
      * {@inheritdoc}
      */

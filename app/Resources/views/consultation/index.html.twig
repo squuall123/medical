@@ -37,13 +37,14 @@
                     </ul>
                 </td>
             </tr>
+            <ul>
+                <li>
+                    <!--<a href="{{ path('consultation_new',{{consultation.idMedecin }},{{} consultation.idPatient}) }}">Create a new consultation</a> -->
+                </li>
+            </ul>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('consultation_new') }}">Create a new consultation</a>
-        </li>
-    </ul>
+
 {% endblock %}
