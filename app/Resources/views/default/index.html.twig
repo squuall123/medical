@@ -2,6 +2,16 @@
 
 {% block body %}
 
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+{% for message in app.flashes('contactMail') %}
+    <div class="flash-notice">
+      <script type="text/javascript">
+        alertify.success("{{ message }}");
+      </script>
+
+    </div>
+{% endfor %}
+
   <div id="myCarousel" class="carousel slide" data-interval="false">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -17,7 +27,7 @@
       <img src="https://i.ytimg.com/vi/upWKRo6IgmI/maxresdefault.jpg" class="img-responsive">
 
     </div>
-    
+
   </div>
   <!-- Controls -->
   <a class="left carousel-control" href="#myCarousel" data-slide="prev">

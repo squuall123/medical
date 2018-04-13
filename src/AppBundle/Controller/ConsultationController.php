@@ -178,12 +178,9 @@ class ConsultationController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $disabled = new DisabledDate();
-                $disabled->setDisabledDate($consultation->getDateRDV());
-                $disabled->setDisabledTime($consultation->getTimeRDV());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($consultation);
-                $em->persist($disabled);
+
                 $em->flush();
 
                 return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
@@ -220,15 +217,13 @@ class ConsultationController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                  $disabled = new DisabledDate();
-                  $disabled->setDisabledDate($consultation->getDateRDV());
-                  $disabled->setDisabledTime($consultation->getTimeRDV());
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($consultation);
-                $em->persist($disabled);
+                ///$em->persist($disabled);
                 $em->flush();
-
-                return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
+                $this->addFlash("addedConsultation", "Added Consultation Successfully");
+                return $this->redirectToRoute('utilisateur_edit', array('id' => $this->getUser()->getId(), 'role' => $this->getUser()->getRole()));
             }
 
             return $this->render('consultation/new.html.twig', array(
@@ -255,21 +250,20 @@ class ConsultationController extends Controller
         $consultation->setDateCreation($date);
         $consultation->setEtat(false);
 
-        $disabledDates = $em->getRepository('AppBundle:DisabledDate')->findAll();
-        //var_dump($disabledDates);
-
 
           //fetching consultations
-        $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($idMedecin);
-/*
+        $freeDays = $em->getRepository('AppBundle:FreeDays')->findByMedecinId($idMedecin);
+
+          //disabling doctor's free dates
+
           $datesToDisable = array();
-          foreach ($consultations as $temp) {
-            $date = $temp->getDateRDV();
+          foreach ($freeDays as $temp) {
+            $date = $temp->getDate();
             array_push($datesToDisable,date_format($date,"Y/m/d"));
             //echo date_format($date,"Y/m/d");
             //var_dump($date);
           }
-*/
+
 
         $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation, array(
           'entity_manager' => $em,
@@ -278,21 +272,19 @@ class ConsultationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-              $disabled = new DisabledDate();
-              $disabled->setDisabledDate($consultation->getDateRDV());
-              $disabled->setDisabledTime($consultation->getTimeRDV());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($consultation);
-            $em->persist($disabled);
-            $em->flush();
 
-            return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
+            $em->flush();
+            $this->addFlash("addedConsultation", "Added Consultation Successfully");
+            return $this->redirectToRoute('utilisateur_edit', array('id' => $this->getUser()->getId(), 'role' => $this->getUser()->getRole()));
         }
 
         return $this->render('consultation/new.html.twig', array(
             'consultation' => $consultation,
             'form' => $form->createView(),
-            //'disabledDates' => $datesToDisable,
+            'disabledDates' => $datesToDisable,
         ));
     }
 

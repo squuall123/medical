@@ -14,16 +14,26 @@
 <script type="text/javascript">
         $(document).ready(function() {
 
+          var arr = ["{{ disabledDates | join(',') }}"];
+          console.log("{{ disabledDates | join(',') }}".split(','));
 
           console.log("date = " + Date.now());
             $('.js-datepicker').flatpickr({
+                utc: true,
+                enableTime: true,
+                disable: "{{ disabledDates | join(',') }}".split(','),
+                dateFormat: "Y/m/d",
                 utc: false,
                 enableTime: false,
                 dateFormat: "Y-m-d",
                 minDate: Date.now(),
+                minTime: "08:00",
+                maxTime: "18:00",
+                time_24hr: true
             });
         });
 </script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -33,9 +43,6 @@ $(document).ready(function() {
     maxTime: "18:00",
     startHour: 8,
     interval: 30,
-    disableTimeRanges: [
-        ['09:00', '10:00']
-    ]
   });
   //console.log();
 });

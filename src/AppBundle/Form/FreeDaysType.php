@@ -6,23 +6,28 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
-
-class TraitementType extends AbstractType
+class FreeDaysType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')->add('contenu')->add('medecinId',HiddenType::class)->add('patientId',HiddenType::class);
+        $builder->add('date',DateType::class,array(
+          'widget' => 'single_text',
+          'html5' => false,
+          'attr' => ['class' => 'js-datepicker'],
+        ))
+        ->add('medecinId',HiddenType::class);
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Traitement'
+            'data_class' => 'AppBundle\Entity\FreeDays'
         ));
     }
 
@@ -31,7 +36,7 @@ class TraitementType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_traitement';
+        return 'appbundle_freedays';
     }
 
 

@@ -29,13 +29,14 @@
 
 
 
-
+						{% if app.user.role == "ROLE_MEDECIN" %}
             <div class="form-group">
               <a href="{{ path('traitement_edit', { 'id': traitement.id }) }}" class="btn btn-warning">Edit</a>
             </div>
-
                 <input type="submit" value="Delete" class="btn btn-danger">
             {{ form_end(delete_form) }}
+						{% endif %}
+
           </fieldset>
           </form>
 
@@ -47,13 +48,15 @@
 
 <script type="text/javascript">
 var doc = new jsPDF()
-doc.text('hello word', 100, 10)
-doc.text(35, 25, 'Logo')
+doc.text(80,20,'Medical Center')
+doc.text(100,40, 'Mr : {{patient.name}} ')
+doc.text(20,60, '{{traitement.titre}}')
+doc.text(20,80, '{{traitement.contenu}}')
 
 
 $(".btn-save").click(function() {
 	console.log("clicked");
-	doc.save('test.pdf')
+	doc.save('{{traitement.titre}}.pdf')
 });
 //doc.output('datauri')
 //console.log(doc.output('datauri'));

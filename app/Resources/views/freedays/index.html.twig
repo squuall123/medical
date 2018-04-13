@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Freedays list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Medecinid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for freeDay in freeDays %}
+            <tr>
+                <td><a href="{{ path('freedays_show', { 'id': freeDay.id }) }}">{{ freeDay.id }}</a></td>
+                <td>{% if freeDay.date %}{{ freeDay.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ freeDay.medecinId }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('freedays_show', { 'id': freeDay.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('freedays_edit', { 'id': freeDay.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('freedays_new') }}">Create a new freeDay</a>
+        </li>
+    </ul>
+{% endblock %}

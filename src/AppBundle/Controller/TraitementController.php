@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Traitement;
+use AppBundle\Entity\Patient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Traitement controller.
@@ -34,15 +36,18 @@ class TraitementController extends Controller
     /**
      * Creates a new traitement entity.
      *
-     * @Route("/new/{medecinId}", name="traitement_new")
+     * @Route("/new/{consultId}", name="traitement_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
-        $idMedecin = $request->get('medecinId');
+        $em = $this->getDoctrine()->getManager();
+        $consultation = $em->getRepository('AppBundle:Consultation')->findOneById($request->get('consultId'));
 
         $traitement = new Traitement();
-        $traitement->setMedecinId($idMedecin);
+        $traitement->setMedecinId($consultation->getIdMedecin());
+        $traitement->setPatientId($consultation->getIdPatient());
+
         $form = $this->createForm('AppBundle\Form\TraitementType', $traitement);
         $form->handleRequest($request);
 
@@ -50,8 +55,8 @@ class TraitementController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($traitement);
             $em->flush();
-
-            return $this->redirectToRoute('traitement_show', array('id' => $traitement->getId()));
+            $this->addFlash("addedTreatment", "Added Treatment Successfully");
+            return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
         }
 
         return $this->render('traitement/new.html.twig', array(
@@ -69,9 +74,11 @@ class TraitementController extends Controller
     public function showAction(Traitement $traitement)
     {
         $deleteForm = $this->createDeleteForm($traitement);
-
+        $em = $this->getDoctrine()->getManager();
+        $patient = $em->getRepository('AppBundle:Patient')->findOneById($traitement->getPatientId());
         return $this->render('traitement/show.html.twig', array(
             'traitement' => $traitement,
+            'patient' => $patient,
             'delete_form' => $deleteForm->createView(),
         ));
     }

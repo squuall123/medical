@@ -41,11 +41,9 @@ class Traitement
      private $medecinId;
 
      /**
-      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Patient",cascade={"persist"})
-      * @ORM\JoinColumn(nullable=false)
-     */
-      private $patient;
-
+      * @ORM\Column(name="patientId", type="integer")
+      */
+      private $patientId;
 
     /**
      * Get id
@@ -130,6 +128,8 @@ class Traitement
         return $this->patient;
     }
 
+
+
     /**
      * Set medecinId
      *
@@ -152,5 +152,29 @@ class Traitement
     public function getMedecinId()
     {
         return $this->medecinId;
+    }
+
+    /**
+     * Set patientId
+     *
+     * @param integer $patientId
+     *
+     * @return Traitement
+     */
+    public function setPatientId($patientId)
+    {
+        $this->patientId = $patientId;
+
+        return $this;
+    }
+
+    /**
+     * Get patientId
+     *
+     * @return integer
+     */
+    public function getPatientId()
+    {
+        return $this->patientId;
     }
 }

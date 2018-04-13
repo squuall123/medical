@@ -59,9 +59,10 @@ class Medecin implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service",cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
     */
      private $specialite;
+
 
     /**
      * @ORM\Column(type="boolean")

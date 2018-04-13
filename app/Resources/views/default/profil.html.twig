@@ -2,7 +2,24 @@
 {% block title%}{{app.user.name}}'s profil{% endblock %}
 
 {% block body %}
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+{% for message in app.flashes('freedayAdded') %}
+    <div class="flash-notice">
+      <script type="text/javascript">
+        alertify.success("{{ message }}");
+      </script>
 
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('addedConsultation') %}
+    <div class="flash-notice">
+      <script type="text/javascript">
+        alertify.success("{{ message }}");
+      </script>
+
+    </div>
+{% endfor %}
 
     <div class="jumbotron">
         <div class="container">
@@ -150,7 +167,9 @@
 
 
 {{ form_end(edit_form) }}
-<br><br>
+<br>
+
+<br>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
@@ -245,7 +264,11 @@ $(document).ready( function () {
                  <div class="info"><label><i class="fa fa-user"></i>Jusitifcation File :</label>  <span>            {{ form_widget(edit_form. justificatifFile) }}
                  </span></div>
 
-                 <div class="info"><input type="submit" value="Edit" class="btn btn-warning" /></div>
+                 <div class="info">
+                   <input type="submit" value="Edit" class="btn btn-warning" />
+                   <a href="/freedays/new" class="btn btn-info">Add Free Day</a>
+                 </div>
+
                 </div>
                 </div>
 

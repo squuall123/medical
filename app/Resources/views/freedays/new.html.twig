@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.3.2/flatpickr.min.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.js"></script>
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+
+          console.log("date = " + Date.now());
+            $('.js-datepicker').flatpickr({
+                utc: false,
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                minDate: Date.now(),
+            });
+        });
+</script>
+<div class="jumbotron">
+        <div class="container">
+             <h1><center>Add Free Day:</center> </h1>
+        </div>
+</div>
+<div class="container">
+    {{ form_start(form) }}
+    <div class="row">
+      <div class="col-md-6">
+      <label>
+        Choose the Date :
+        </label>
+      </div>
+      <div class="col-md-6">
+  		  {{ form_widget(form.date) }}
+      </div>
+    </div>
+
+
+  		<input type="submit" value="Create" class="btn btn-success"/>
+  {{ form_end(form) }}
+
+
+</div>
+
+{% endblock %}

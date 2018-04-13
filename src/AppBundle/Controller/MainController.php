@@ -55,10 +55,51 @@ class MainController extends Controller
             */
         ;
         $this->get('mailer')->send($message);
-        return $this->render('default/sent-contact.html.twig');
+                $this->addFlash("contactMail", "Your Email has been Submitted to an Administrator");
+        return $this->redirectToRoute('welcome');
         }
 
         return $this->render('default/contact.html.twig');
+    }
+
+    /**
+    * @Route("/mailto/{idMedecin}", name="mailtoDoctor")
+    */
+    public function mailtoAction(Request $request)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $medecin = $em->getRepository('AppBundle:Medecin')->findOneById($request->get('idMedecin'));
+      if ($request->isMethod('POST')) {
+          $msg = $request->get('message');
+          $message = \Swift_Message::newInstance()
+            ->setSubject($request->get('subject'))
+            ->setFrom($this->getUser()->getEmail())
+            ->setTo($medecin->getEmail())
+            ->setBody(
+                $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                    'Emails/mailtoDoctor.html.twig',
+                    array('name' => $this->getUser()->getName(), 'subject' => $request->get('subject'), 'msg' => $msg)
+                ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+        $this->get('mailer')->send($message);
+        $this->addFlash("contactDoctor", "Your Email has been Submitted to the Doctor.");
+        return $this->redirectToRoute('medecin_show', array('id' => $medecin->getId()));
+        }
+
+        return $this->render('default/mailto.html.twig');
     }
 
     /**
@@ -116,7 +157,7 @@ class MainController extends Controller
 
           $temp = $em->getRepository('AppBundle:Patient')->findById($id);
           //var_dump($temp[0]);
-          $traitements = $em->getRepository('AppBundle:Traitement')->findByPatient($temp[0]->getId());
+          $traitements = $em->getRepository('AppBundle:Traitement')->findByPatientId($temp[0]->getId());
           //var_dump($traitements);
         $patient = new Patient();
         $editForm = $this->createForm('AppBundle\Form\PatientType',$temp[0]);

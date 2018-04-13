@@ -176,4 +176,9 @@ class Patient implements UserInterface
     {
         return $this->phone;
     }
+    
+    public function __toString()
+   {
+      return (String)$this->getName();
+   }
 }
