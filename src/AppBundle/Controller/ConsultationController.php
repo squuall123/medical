@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Consultation;
+use AppBundle\Entity\DisabledDate;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * Consultation controller.
@@ -43,10 +45,45 @@ class ConsultationController extends Controller
       $em = $this->getDoctrine()->getManager();
       $consultation = $em->getRepository('AppBundle:Consultation')->findOneById($id);
       $consultation->setEtat(true);
+      $info = $consultation->getIdPatient();
+      $user = $em->getRepository("AppBundle:Patient")->findOneById($info);
+      $name = $consultation->getNomPatient();
+      $mail = $user->getEmail();
+      $doctor = $consultation->getNomMedecin();
+      $date = $consultation->getDateRDV();
+      $time = $consultation->getTimeRDV();
+      $merge = new \DateTime($date->format('Y-m-d').' ' .$time->format('H:i'));
+      $result = $merge->format('Y-m-d H:i');
       $em->persist($consultation);
       $em->flush();
       //return var_dump($consultation);
       //$deleteForm = $this->createDeleteForm($consultation);
+
+      //send mail
+      $message = \Swift_Message::newInstance()
+        ->setSubject('Validate Email')
+        ->setFrom('medicalcenterpfa@gmail.com')
+        ->setTo($mail)
+        ->setBody(
+            $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                'Emails/validate.html.twig',
+                array('name' => $name, 'doctor' => $doctor, 'date' => $result)
+            ),
+            'text/html'
+        )
+        /*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'Emails/registration.txt.twig',
+                array('name' => $name)
+            ),
+            'text/plain'
+        )
+        */
+    ;
+    $this->get('mailer')->send($message);
 
       return $this->redirectToRoute('utilisateur_edit', array('id' => $this->getUser()->getId(), 'role' => $this->getUser()->getRole()));
     }
@@ -61,10 +98,47 @@ class ConsultationController extends Controller
       $id = $request->get('id');
       $em = $this->getDoctrine()->getManager();
       $consultation = $em->getRepository('AppBundle:Consultation')->findOneById($id);
+      $info = $consultation->getIdPatient();
+      $user = $em->getRepository("AppBundle:Patient")->findOneById($info);
+      $name = $consultation->getNomPatient();
+      $mail = $user->getEmail();
+      $doctor = $consultation->getNomMedecin();
+      $date = $consultation->getDateRDV();
+      $time = $consultation->getTimeRDV();
+      $merge = new \DateTime($date->format('Y-m-d').' ' .$time->format('H:i'));
+      $result = $merge->format('Y-m-d H:i');
       $em->remove($consultation);
       $em->flush();
       //return var_dump($consultation);
       //$deleteForm = $this->createDeleteForm($consultation);
+
+      //send email
+
+      //send mail
+      $message = \Swift_Message::newInstance()
+        ->setSubject('Validate Email')
+        ->setFrom('medicalcenterpfa@gmail.com')
+        ->setTo($mail)
+        ->setBody(
+            $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                'Emails/refuse.html.twig',
+                array('name' => $name, 'doctor' => $doctor, 'date' => $result)
+            ),
+            'text/html'
+        )
+        /*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'Emails/registration.txt.twig',
+                array('name' => $name)
+            ),
+            'text/plain'
+        )
+        */
+    ;
+    $this->get('mailer')->send($message);
 
       return $this->redirectToRoute('utilisateur_edit', array('id' => $this->getUser()->getId(), 'role' => $this->getUser()->getRole()));
     }
@@ -104,8 +178,12 @@ class ConsultationController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $disabled = new DisabledDate();
+                $disabled->setDisabledDate($consultation->getDateRDV());
+                $disabled->setDisabledTime($consultation->getTimeRDV());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($consultation);
+                $em->persist($disabled);
                 $em->flush();
 
                 return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
@@ -142,8 +220,12 @@ class ConsultationController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                  $disabled = new DisabledDate();
+                  $disabled->setDisabledDate($consultation->getDateRDV());
+                  $disabled->setDisabledTime($consultation->getTimeRDV());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($consultation);
+                $em->persist($disabled);
                 $em->flush();
 
                 return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));
@@ -173,8 +255,12 @@ class ConsultationController extends Controller
         $consultation->setDateCreation($date);
         $consultation->setEtat(false);
 
+        $disabledDates = $em->getRepository('AppBundle:DisabledDate')->findAll();
+        //var_dump($disabledDates);
+
+
           //fetching consultations
-          $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($idMedecin);
+        $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($idMedecin);
 /*
           $datesToDisable = array();
           foreach ($consultations as $temp) {
@@ -192,8 +278,12 @@ class ConsultationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+              $disabled = new DisabledDate();
+              $disabled->setDisabledDate($consultation->getDateRDV());
+              $disabled->setDisabledTime($consultation->getTimeRDV());
             $em = $this->getDoctrine()->getManager();
             $em->persist($consultation);
+            $em->persist($disabled);
             $em->flush();
 
             return $this->redirectToRoute('consultation_show', array('id' => $consultation->getId()));

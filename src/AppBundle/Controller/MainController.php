@@ -26,6 +26,38 @@ class MainController extends Controller
     */
     public function showContactAction(Request $request)
     {
+      if ($request->isMethod('POST')) {
+        $msg = $request->get('message');
+        $name = $request->get('name');
+        $subject = $request->get('subject');
+        $email = $request->get('email');
+          $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($email)
+            ->setTo('squuall123@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                    'Emails/contact.html.twig',
+                    array('name' => $name, 'subject' => $subject, 'msg' => $msg, 'email'=> $email)
+                ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+        $this->get('mailer')->send($message);
+        return $this->render('default/sent-contact.html.twig');
+        }
+
         return $this->render('default/contact.html.twig');
     }
 
