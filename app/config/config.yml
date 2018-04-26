@@ -109,3 +109,8 @@ fos_rest:
             - { path: '^/api/patients', priorities: ['json'], fallback_format: 'json' }
             - { path: '^/api/patient', priorities: ['json'], fallback_format: 'json' }
             - { path: '^/', priorities: ['html'], fallback_format: 'json' }
+lexik_jwt_authentication:
+    private_key_path: '%kernel.root_dir%/../config/jwt/private.pem'
+    public_key_path:  '%kernel.root_dir%/../config/jwt/public.pem'
+    pass_phrase:      'medical'
+    token_ttl:        3600

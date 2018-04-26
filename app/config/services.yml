@@ -13,3 +13,7 @@ services:
         arguments: [ "@doctrine.orm.entity_manager" , "@security.token_storage"]
         tags:
           - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
+
+    token_authenticator:
+        class: AppBundle\Security\TokenAuthenticator
+        arguments: ['@lexik_jwt_authentication.encoder.default', '@doctrine.orm.entity_manager']
