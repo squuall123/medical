@@ -211,7 +211,7 @@ public function loginApiAction(Request $request)
      $user = $em->getRepository('AppBundle:Patient')->findOneByName($username);
 
      if (!$user) {
-       return new Response( Response::HTTP_NOT_FOUND);
+       return new Response("Not_Found",Response::HTTP_NOT_FOUND);
          //throw $this->createNotFoundException();
      }
 
@@ -219,7 +219,7 @@ public function loginApiAction(Request $request)
          ->isPasswordValid($user, $password);
 
      if (!$isValid) {
-       return new Response(Response::HTTP_UNAUTHORIZED);
+       return new Response("BadCredentials",Response::HTTP_UNAUTHORIZED);
          //throw new BadCredentialsException();
      }
 
