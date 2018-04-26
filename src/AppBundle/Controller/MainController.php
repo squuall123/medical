@@ -145,6 +145,33 @@ class MainController extends Controller
     /**
      * Displays a form to edit an existing utilisateur entity.
      *
+     * @Route("/consultations/{id}", name="list_consults")
+     * @Method({"GET"})
+     */
+    public function consultationsStatusAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $medecin = $em->getRepository('AppBundle:Medecin')->findOneById($request->get('id'));
+        $consultations = $em->getRepository('AppBundle:Consultation')->findByIdMedecin($request->get('id'));
+        $confirmed = array();
+        $notConfirmed = array();
+        foreach ($consultations as $value) {
+
+            if($value->getEtat() == false){
+                array_push($notConfirmed,$value);
+            }else array_push($confirmed, $value);
+
+        }
+
+        return $this->render('default/listConsultations.html.twig', array(
+            "confirmed" => $confirmed,
+            "notConfirmed" => $notConfirmed,
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing utilisateur entity.
+     *
      * @Route("/profil/{role}/{id}", name="utilisateur_edit")
      * @Method({"GET", "POST"})
      */
@@ -158,6 +185,23 @@ class MainController extends Controller
           $temp = $em->getRepository('AppBundle:Patient')->findById($id);
           //var_dump($temp[0]);
           $traitements = $em->getRepository('AppBundle:Traitement')->findByPatientId($temp[0]->getId());
+          $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($temp[0]->getId());
+
+          $idmedecins= array();
+          $treatments = array();
+          foreach ($consultations as $value) {
+
+            $tempDoc = $em->getRepository('AppBundle:Medecin')->findOneById($value->getIdMedecin());
+            $treat = $em->getRepository('AppBundle:Traitement')->findByConsultationId($value->getId());
+            array_push($treatments,$treat);
+            if(!in_array($tempDoc,$idmedecins)){
+              array_push($idmedecins,$tempDoc);
+              //var_dump($value->getTraitement());
+            }
+
+          }
+
+
           //var_dump($traitements);
         $patient = new Patient();
         $editForm = $this->createForm('AppBundle\Form\PatientType',$temp[0]);
@@ -173,6 +217,9 @@ class MainController extends Controller
             'utilisateur' => $patient,
             'traitements' => $traitements,
             'edit_form' => $editForm->createView(),
+            'mymedecins'=> $idmedecins,
+            'consultations' => $consultations,
+            'treats' => $treatments,
         ));
         } else if($role == "ROLE_MEDECIN"){
           $patients = array();

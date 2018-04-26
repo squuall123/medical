@@ -45,6 +45,11 @@ class Traitement
       */
       private $patientId;
 
+      /**
+       * @ORM\Column(name="consultationId", type="integer")
+       */
+      private $consultationId;
+
     /**
      * Get id
      *
@@ -176,5 +181,29 @@ class Traitement
     public function getPatientId()
     {
         return $this->patientId;
+    }
+
+    /**
+     * Set consultationId
+     *
+     * @param integer $consultationId
+     *
+     * @return Traitement
+     */
+    public function setConsultationId($consultationId)
+    {
+        $this->consultationId = $consultationId;
+
+        return $this;
+    }
+
+    /**
+     * Get consultationId
+     *
+     * @return integer
+     */
+    public function getConsultationId()
+    {
+        return $this->consultationId;
     }
 }

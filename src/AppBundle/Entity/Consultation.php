@@ -80,7 +80,6 @@ class Consultation
      */
     protected $etat;
 
-
     /**
      * Get id
      *
@@ -305,5 +304,12 @@ class Consultation
     public function getEtat()
     {
         return $this->etat;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->consultation = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

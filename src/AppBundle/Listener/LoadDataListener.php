@@ -44,7 +44,10 @@ class LoadDataListener
                   $time = $consultation->getTimeRDV();
                   //$datetime = date('Y-m-d H:i:s', strtotime("$date $time"));
                   $merge = new \DateTime($date->format('Y-m-d').' ' .$time->format('H:i'));
+
                   $result = $merge->format('Y-m-d H:i');
+                    $newTestDate = substr($result,0,-4);
+                    $final = date('Y-m-d H:i', strtotime($result));
                   //var_dump($result);
                   //$final = date('Y-m-d H:i', $merge->format('Y-m-d H:i'));
                   $event = new Event($consultation->getDescription(), $merge);

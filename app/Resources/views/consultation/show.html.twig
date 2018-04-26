@@ -49,7 +49,9 @@
 
      </div>
      <br><br>
+     {% if app.user.role == "ROLE_MEDECIN" %}
       <a href="/traitement/new/{{consultation.id}}" class="btn btn-success">Add a treatment</a>
+      {% endif %}
      </div>
 
 
