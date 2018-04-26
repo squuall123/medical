@@ -166,7 +166,7 @@ class RestController extends Controller
 * @Rest\View()
 * @Post("/api/register")
 */
-public function registerAction(Request $request)
+public function registerApiAction(Request $request)
 {
       $user = new Patient();
       $form = $this->createForm(PatientType::class, $user);
@@ -202,7 +202,7 @@ public function registerAction(Request $request)
 * @Rest\View()
 * @Post("/api/login")
 */
-public function loginAction(Request $request)
+public function loginApiAction(Request $request)
 {
      $username = $request->getUser();
      $password = $request->getPassword();
