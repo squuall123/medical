@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use AppBundle\Entity\Patient;
+use AppBundle\Form\PatientType;
 
 
 class RestController extends Controller
@@ -206,7 +207,7 @@ public function registerApiAction(Request $request)
   }
   else {
     //return new Response('not created user');
-    return new Response('error');
+    return new Response($this->serialize(['resp ' => $form]));
   }
   //return new Response($data['test']);
 
