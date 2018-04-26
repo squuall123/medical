@@ -237,7 +237,7 @@ public function loginApiAction(Request $request)
 *
 * @return array
 */
-public function getToken(User $user)
+public function getToken(Patient $user)
 {/*
   return $this->container->get('lexik_jwt_authentication.encoder.default')
           ->encode([
