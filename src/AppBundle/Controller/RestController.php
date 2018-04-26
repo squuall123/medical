@@ -37,6 +37,21 @@ class RestController extends Controller
 
   /**
   * @Rest\View()
+  * @Get("/api/getUser")
+  */
+  public function getCurrentUserAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $user = $em->getRepository('AppBundle:Patient')->findOneById($this->getUser()->getId());
+
+    return $user;
+
+  }
+
+  /**
+  * @Rest\View()
   * @Get("/api/services")
   */
   public function getAllServicesAction(Request $request)
