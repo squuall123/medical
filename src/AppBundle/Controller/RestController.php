@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use AppBundle\Entity\Patient;
+use AppBundle\Form\PatientType;
 
 
 class RestController extends Controller
@@ -32,6 +33,21 @@ class RestController extends Controller
     $users = $em->getRepository('AppBundle:Patient')->findAll();
 
     return $users;
+
+  }
+
+  /**
+  * @Rest\View()
+  * @Get("/api/getUser")
+  */
+  public function getCurrentUserAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $user = $em->getRepository('AppBundle:Patient')->findOneById($this->getUser()->getId());
+
+    return $user;
 
   }
 
@@ -191,7 +207,7 @@ public function registerApiAction(Request $request)
   }
   else {
     //return new Response('not created user');
-    return new Response('error');
+    return new Response($this->serialize(['resp ' => $form]));
   }
   //return new Response($data['test']);
 
@@ -211,7 +227,7 @@ public function loginApiAction(Request $request)
      $user = $em->getRepository('AppBundle:Patient')->findOneByName($username);
 
      if (!$user) {
-       return new Response( Response::HTTP_NOT_FOUND);
+       return new Response("Not_Found",Response::HTTP_NOT_FOUND);
          //throw $this->createNotFoundException();
      }
 
@@ -219,7 +235,7 @@ public function loginApiAction(Request $request)
          ->isPasswordValid($user, $password);
 
      if (!$isValid) {
-       return new Response(Response::HTTP_UNAUTHORIZED);
+       return new Response("BadCredentials",Response::HTTP_UNAUTHORIZED);
          //throw new BadCredentialsException();
      }
 

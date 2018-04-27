@@ -67,7 +67,6 @@ class TraitementController extends Controller
         ));
     }
 
-  
     /**
      * Finds and displays a traitement entity.
      *
