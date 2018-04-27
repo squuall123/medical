@@ -199,10 +199,15 @@ $(document).ready( function () {
                                <div class="col-md-9 col-lg-push-3">
                                  <a href="/consultation/{{consultation.id}}" class="btn-add-submit btn btn-success">See Consultation</a>
                                   <br>
+                                  {% if treats is empty %}
+                                {% else %}
+                                  <h3> Your treaments :</h3>
+                                  {% endif %}
                                     {% for treat in treats %}
                                     {% for x in treat %}
                                     {% if x.consultationId == consultation.id %}
-                                      <a href="/traitement/{{x.id}}">{{x.titre}}</a>
+
+                                      <a href="/traitement/{{x.id}}" class="btn btn-warning">{{x.titre}}</a>
                                       <br>
                                     {% endif %}
                                     {% endfor %}
@@ -312,7 +317,7 @@ $(document).ready( function () {
                  <div class="info">
                    <input type="submit" value="Edit" class="btn btn-warning" />
                    <a href="/freedays/new" class="btn btn-info">Add Free Day</a>
-                   <a href="/consultations/{{app.user.id}}">List Consultations</a>
+                   <a href="/consultations/{{app.user.id}}" class="btn btn-success">List Consultations</a>
                  </div>
 
                 </div>

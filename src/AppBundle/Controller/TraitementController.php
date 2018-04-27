@@ -67,28 +67,7 @@ class TraitementController extends Controller
         ));
     }
 
-    /**
-     * Creates a new traitement entity.
-     *
-     * @Route("/spc/{consultId}", name="traitement_new")
-     * @Method({"GET", "POST"})
-     */
-    public function specialAction(Request $request)
-    {
-      $em = $this->getDoctrine()->getManager();
-      $treat = $em->getRepository('AppBundle:Traitement')->findByConsultationId($request->get('consultId'));
-
-          $deleteForm = $this->createDeleteForm($treat);
-          $em = $this->getDoctrine()->getManager();
-          $patient = $em->getRepository('AppBundle:Patient')->findOneById($treat->getPatientId());
-      return $this->render('traitement/show.html.twig', array(
-          'traitement' => $treat,
-          'patient' => $patient,
-          'delete_form' => $deleteForm->createView(),
-      ));
-
-    }
-
+  
     /**
      * Finds and displays a traitement entity.
      *
