@@ -104,7 +104,7 @@ class RestController extends Controller
   {
 
     $em = $this->getDoctrine()->getManager();
-    $specialite = $em->getRepository('AppBundle:Service')->findOneByNom($request->get('specialite'))
+    $specialite = $em->getRepository('AppBundle:Service')->findOneByNom($request->get('specialite'));
     $medecins = $em->getRepository('AppBundle:Medecin')->findBySpecialite($specialite);
 
     return $medecins;
