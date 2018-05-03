@@ -38,6 +38,21 @@ class RestController extends Controller
 
   /**
   * @Rest\View()
+  * @Get("/api/patient/consultations/{id}")
+  */
+  public function getPatientConsultationsAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+    $patient = $em->getRepository('AppBundle:Patient')->findOneById($request->get('id'));
+    $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($patient->getId());
+
+    return $consultations;
+
+  }
+
+  /**
+  * @Rest\View()
   * @Get("/api/getUser")
   */
   public function getCurrentUserAction(Request $request)
