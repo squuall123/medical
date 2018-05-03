@@ -46,3 +46,4 @@ security:
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/services, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/service, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/patient, roles: IS_AUTHENTICATED_FULLY }
