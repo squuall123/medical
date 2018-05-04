@@ -103,7 +103,7 @@ class RestController extends Controller
   * @Rest\View()
   * @Get("/api/consultations/{id}")
   */
-  public function getmyDoctorsAction(Request $request)
+  public function getmyConsultationsAction(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
     $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('id'));
