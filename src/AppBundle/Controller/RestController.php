@@ -83,7 +83,7 @@ class RestController extends Controller
 
   /**
   * @Rest\View()
-  * @Get("/api/medecins/{uid}")
+  * @Get("/api/mymedecins/{uid}")
   */
   public function getmyDoctorsAction(Request $request)
   {

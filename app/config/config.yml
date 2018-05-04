@@ -113,6 +113,7 @@ fos_rest:
             - { path: '^/api/medecin', priorities: ['json'], fallback_format: 'json' }
             - { path: '^/api/patient/consultations', priorities: ['json'], fallback_format: 'json' }
             - { path: '^/api/medecins', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/api/mymedecins', priorities: ['json'], fallback_format: 'json' }
             - { path: '^/api/getUser', priorities: ['json'], fallback_format: 'json' }
             - { path: '^/', priorities: ['html'], fallback_format: 'json' }
 lexik_jwt_authentication:

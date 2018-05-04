@@ -48,3 +48,5 @@ security:
         - { path: ^/api/service, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/patient, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/medecin, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/medecins, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/mymedecins, roles: IS_AUTHENTICATED_FULLY }
