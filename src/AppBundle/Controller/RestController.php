@@ -87,22 +87,30 @@ class RestController extends Controller
   */
   public function getmyDoctorsAction(Request $request)
   {
-
     $em = $this->getDoctrine()->getManager();
-    $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('id'));
+    $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('uid'));
     $medecins= array();
     foreach ($consultations as $value) {
-
       $tempDoc = $em->getRepository('AppBundle:Medecin')->findOneById($value->getIdMedecin());
       if(!in_array($tempDoc,$idmedecins)){
         array_push($idmedecins,$tempDoc);
       }
-
     }
-
     return $medecins;
-
   }
+
+  /**
+  * @Rest\View()
+  * @Get("/api/consultations/{id}")
+  */
+  public function getmyDoctorsAction(Request $request)
+  {
+    $em = $this->getDoctrine()->getManager();
+    $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('id'));
+
+    return $consultations;
+  }
+
 
   /**
   * @Rest\View()
