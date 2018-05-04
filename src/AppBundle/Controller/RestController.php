@@ -89,20 +89,13 @@ class RestController extends Controller
   {
 
     $em = $this->getDoctrine()->getManager();
-    $patient = $em->getRepository('AppBundle:Patient')->findOneById($request->get('uid'));
-
     $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('id'));
-
-    $idmedecins= array();
-    $treatments = array();
+    $medecins= array();
     foreach ($consultations as $value) {
 
       $tempDoc = $em->getRepository('AppBundle:Medecin')->findOneById($value->getIdMedecin());
-      $treat = $em->getRepository('AppBundle:Traitement')->findByConsultationId($value->getId());
-      array_push($treatments,$treat);
       if(!in_array($tempDoc,$idmedecins)){
         array_push($idmedecins,$tempDoc);
-        //var_dump($value->getTraitement());
       }
 
     }
