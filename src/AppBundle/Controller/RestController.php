@@ -92,8 +92,8 @@ class RestController extends Controller
     $medecins= array();
     foreach ($consultations as $value) {
       $tempDoc = $em->getRepository('AppBundle:Medecin')->findOneById($value->getIdMedecin());
-      if(!in_array($tempDoc,$idmedecins)){
-        array_push($idmedecins,$tempDoc);
+      if(!in_array($tempDoc,$medecins)){
+        array_push($medecins,$tempDoc);
       }
     }
     return $medecins;
