@@ -100,7 +100,7 @@ class RestController extends Controller
 
     }
 
-    return $idmedecins;
+    return $medecins;
 
   }
 
