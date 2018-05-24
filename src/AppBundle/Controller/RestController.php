@@ -202,9 +202,9 @@ class RestController extends Controller
 
     $em = $this->getDoctrine()->getManager();
 
-    $temp = $em->getRepository('AppBundle:Patient')->findById($request->get('id'));
+    $temp = $em->getRepository('AppBundle:Patient')->findOneById($request->get('id'));
     //var_dump($temp[0]);
-    $traitements = $em->getRepository('AppBundle:Traitement')->findByPatient($temp[0]->getId());
+    $traitements = $em->getRepository('AppBundle:Traitement')->findByPatientId($temp->getId());
     //$patient = $em->getRepository('AppBundle:Patient')->findById($request->get('id'));
 
     return $traitements;
