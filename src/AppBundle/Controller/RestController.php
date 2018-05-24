@@ -105,14 +105,13 @@ class RestController extends Controller
   */
   public function getmyConsultationsAction(Request $request)
   {
-    $now = new \DateTime('now');
+    $now = new \DateTime("now");
     $em = $this->getDoctrine()->getManager();
     $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('id'));
-
     $valid = array();
     foreach($consultations as $value){
-      if ($value->getEtat() == true && $value->getDateRDV() > $now) {
-        array_push($value,$valid);
+      if ($value->getEtat() == true && $value->getDateRDV()->format('Y-m-d') > $now->format('Y-m-d')) {
+        array_push($valid,$value);
       }
     }
     return $valid;
