@@ -110,7 +110,7 @@ class RestController extends Controller
     $consultations = $em->getRepository('AppBundle:Consultation')->findByIdPatient($request->get('id'));
     $valid = array();
     foreach($consultations as $value){
-      if ($value->getEtat() == true ) {
+      if ($value->getEtat() == true && $value->getDateRDV()->format('Y-m-d') > $now->format('Y-m-d')) {
         array_push($valid,$value);
       }
     }
