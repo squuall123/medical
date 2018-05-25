@@ -171,6 +171,23 @@ class ConsultationController extends Controller
             $consultation->setNomMedecin($medecin->getName());
             $date = new \DateTime("now");
             $consultation->setDateCreation($date);
+            $consultation->setEtat(false);
+
+
+              //fetching consultations
+            $freeDays = $em->getRepository('AppBundle:FreeDays')->findByMedecinId($idMedecin);
+
+              //disabling doctor's free dates
+
+              $datesToDisable = array();
+              foreach ($freeDays as $temp) {
+                $date = $temp->getDate();
+                array_push($datesToDisable,date_format($date,"Y/m/d"));
+                //echo date_format($date,"Y/m/d");
+                //var_dump($date);
+              }
+
+
             $form = $this->createForm('AppBundle\Form\ConsultationType', $consultation, array(
               'entity_manager' => $em,
               'medecinId' => $idMedecin,
@@ -189,6 +206,8 @@ class ConsultationController extends Controller
             return $this->render('consultation/new.html.twig', array(
                 'consultation' => $consultation,
                 'form' => $form->createView(),
+                'disabledDates' => $datesToDisable,
+
             ));
 
         }
