@@ -316,8 +316,13 @@ $(document).ready( function () {
 
                  <div class="info">
                    <input type="submit" value="Edit" class="btn btn-warning" />
+                   {% if app.user.etat == true %}
                    <a href="/freedays/new" class="btn btn-info">Add Free Day</a>
                    <a href="/consultations/{{app.user.id}}" class="btn btn-success">List Consultations</a>
+                   {% endif %}
+                   {% if app.user.etat == false %}
+                    <h1>Profil not verified yet !!!</h1>
+                    {% endif %}
                  </div>
 
                 </div>
@@ -333,9 +338,7 @@ $(document).ready( function () {
 
 {{ form_end(edit_form) }}
 
-   {% if app.user.etat == false %}
-    <h1>Profil not verified yet !!!</h1>
-{% endif %}
+
 {% if app.user.etat == true %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
