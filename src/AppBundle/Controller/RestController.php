@@ -187,7 +187,7 @@ class RestController extends Controller
 
     $em = $this->getDoctrine()->getManager();
 
-    $patient = $em->getRepository('AppBundle:Patient')->findById($request->get('id'));
+    $patient = $em->getRepository('AppBundle:Patient')->findOneById($request->get('id'));
 
     return $patient;
 
